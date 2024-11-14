@@ -1,0 +1,1 @@
+This project is a collection of webscrape python scripts with the goal of gathering data for items in the game Core Keeper from the core keeper wiki https://core-keeper.fandom.com/wiki/Core_Keeper_Wiki
