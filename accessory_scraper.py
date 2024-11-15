@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import json
 import time
 from typing import Dict, List
+import re
 
 class CoreKeeperAccessoryScraper:
     def __init__(self):
@@ -17,6 +18,13 @@ class CoreKeeperAccessoryScraper:
         }
         self.scraped_urls = set()
         self.debug_mode = False
+        self.skip_urls = [
+            '/wiki/Diving_Helm',
+            '/wiki/Kelp_Mantle',
+            '/wiki/Scuba_Fins',
+            'Category:Armor',
+            'Category:Equipment'
+        ]
     
     def get_page(self, url: str) -> BeautifulSoup:
         time.sleep(1)  # Add delay to be nice to the wiki
@@ -98,6 +106,9 @@ class CoreKeeperAccessoryScraper:
                     accessory_data['max_level'] = max(available_levels)
                     print(f"Found levels from {accessory_data['min_level']} to {accessory_data['max_level']}")
                     
+                    # Track processed levels to avoid duplicates
+                    processed_levels = set()
+                    
                     # Find all tab content sections
                     tab_contents = infobox.find_all('div', {'class': 'wds-tab__content'})
                     for content in tab_contents:
@@ -109,14 +120,26 @@ class CoreKeeperAccessoryScraper:
                             if label and value:
                                 key = label.text.strip().lower()
                                 val = value.text.strip()
-                                if '(' in val:
-                                    val = val.split('(')[0].strip()
+                                
+                                # Clean up level numbers and effects for ALL fields
+                                val = re.sub(r'\s*\([^)]*\)', '', val).strip()
+                                
+                                # Additional processing for effects
+                                if key == 'effects':
+                                    effects = ['+' + e.strip() for e in val.split('+') if e.strip()]
+                                    if effects and effects[0].startswith('++'):
+                                        effects[0] = effects[0][1:]
+                                    val = ''.join(effects)
+                                
                                 level_data[key] = val
                         
                         if 'level' in level_data:
                             level_num = level_data['level']
-                            accessory_data['levels'][level_num] = level_data
-                            print(f"Processed level {level_num} data")
+                            # Only process this level if we haven't seen it before
+                            if level_num not in processed_levels:
+                                accessory_data['levels'][level_num] = level_data
+                                processed_levels.add(level_num)
+                                print(f"Processed level {level_num} data")
                 else:
                     print(f"No level data found for {accessory_data['name']}")
         except Exception as e:
@@ -125,31 +148,20 @@ class CoreKeeperAccessoryScraper:
     
     def scrape_accessories(self, debug_mode=False):
         self.debug_mode = debug_mode
-        print(f"Starting to scrape accessories from {self.accessories_url}")
-        print(f"Debug mode: {'ON' if debug_mode else 'OFF'}")
+        processed_count = 0
+        
         try:
             soup = self.get_page(self.accessories_url)
-            print("Successfully loaded the accessories page")
-            tables = soup.find_all('table', {'class': 'fandom-table'})
-            print(f"Found {len(tables)} tables")
+            sections = soup.find_all(['h2', 'h3'])
+            urls_to_scrape = []
+            queued_urls = set()  # Add this to track URLs already in queue
             
-            # List of URLs to skip - these are armor/other equipment pages
-            skip_urls = [
-                '/wiki/Diving_Helm',
-                '/wiki/Kelp_Mantle',
-                '/wiki/Scuba_Fins',
-                'Category:Armor',
-                'Category:Equipment'
-            ]
-            
-            for table in tables:
-                header = table.find_previous(['h2', 'h3'])
-                if not header:
+            for section in sections:
+                table = section.find_next('table', {'class': 'fandom-table'})
+                if not table:
                     continue
                     
-                section_text = header.get_text().strip()
-                print(f"\nProcessing section: {section_text}")
-                
+                section_text = section.get_text().strip()
                 current_category = None
                 if "Rings" in section_text:
                     current_category = "rings"
@@ -165,25 +177,16 @@ class CoreKeeperAccessoryScraper:
                 if not current_category:
                     continue
                     
-                print(f"Found category: {current_category}")
+                print(f"\nProcessing {current_category} table")
                 
-                for cell in table.find_all('td'):
-                    item_spans = cell.find_all('span', {'class': 'item'})
-                    for item_span in item_spans:
-                        link = item_span.find('a', href=True)
+                for row in table.find_all('tr'):
+                    first_cell = row.find('td')
+                    if first_cell:
+                        link = first_cell.find('a', href=True)
                         if link and link.get('href'):
                             href = link.get('href')
                             
-                            # Skip if the URL matches any in our skip list
-                            if any(skip_url in href for skip_url in skip_urls):
-                                print(f"  Skipping non-accessory item: {href}")
-                                continue
-                                
-                            # Only process links that are specifically to accessories
-                            if not ('/wiki/Accessories/' in href or 
-                                  'Category:Accessories' in href or
-                                  any(f'_{cat}' in href.lower() for cat in ['ring', 'necklace', 'lantern', 'bag'])):
-                                print(f"  Skipping non-accessory link: {href}")
+                            if any(skip_url in href for skip_url in self.skip_urls):
                                 continue
                             
                             if href and not href.startswith('#'):
@@ -194,34 +197,66 @@ class CoreKeeperAccessoryScraper:
                                 else:
                                     accessory_url = f"{self.base_url}/{href}"
                                 
-                                if accessory_url in self.scraped_urls:
-                                    print(f"  Skipping already scraped accessory: {accessory_url}")
-                                    continue
-                                
-                                print(f"  Scraping accessory: {accessory_url}")
-                                accessory_data = self.scrape_accessory_page(accessory_url, current_category)
-                                if accessory_data['name']:
-                                    self.items_data[current_category][accessory_data['name']] = accessory_data
-                                    self.scraped_urls.add(accessory_url)
-                                
-                                if self.debug_mode:
-                                    print("Debug mode: Stopping after first accessory")
-                                    return
-                                    
+                                # Only add if URL is not in queue and not already scraped
+                                if accessory_url not in queued_urls and accessory_url not in self.scraped_urls:
+                                    urls_to_scrape.append((accessory_url, current_category))
+                                    queued_urls.add(accessory_url)  # Add to queued set
+            
+            # Process URLs
+            for accessory_url, current_category in urls_to_scrape:
+                print(f"\nScraping accessory: {accessory_url}")
+                accessory_data = self.scrape_accessory_page(accessory_url, current_category)
+                if accessory_data['name']:
+                    self.items_data[current_category][accessory_data['name']] = accessory_data
+                    self.scraped_urls.add(accessory_url)
+                    processed_count += 1
+                    
+                    if self.debug_mode and processed_count >= 3:
+                        print("Debug mode: Stopping after third processed accessory")
+                        self.save_to_json()  # Save before returning in debug mode
+                        return
+                    
         except Exception as e:
             print(f"Error in scrape_accessories: {str(e)}")
-            print("Full error:")
-            import traceback
             traceback.print_exc()
+        
+        # Only save here if we're not in debug mode
+        if not self.debug_mode:
+            self.save_to_json()
     
     def save_to_json(self, filename: str = 'core_keeper_accessories.json'):
         """Save scraped data to JSON file"""
         with open(filename, 'w', encoding='utf-8') as f:
             json.dump(self.items_data, f, indent=2)
+    
+    def process_effects(self, effects_text):
+        # Remove any (+X) or (-X) indicators
+        effects = re.sub(r'\s*[\(\[]-?\+?\d+\.?\d*%?\)?]?', '', effects_text)
+        return effects
+    
+    def scrape_levels(self, table_rows):
+        levels = {}
+        current_level = None
+        
+        for row in table_rows:
+            cells = row.find_all(['th', 'td'])
+            if len(cells) < 2:
+                continue
+            
+            header = cells[0].get_text(strip=True)
+            value = cells[1].get_text(strip=True)
+            
+            if header == 'Level':
+                current_level = value
+                levels[current_level] = {}
+            elif current_level is not None:
+                # For effects, process to remove change indicators but keep all effects
+                if header == 'Effects':
+                    value = self.process_effects(value)
+                levels[current_level][header.lower()] = value
+                
+        return levels
 
 if __name__ == "__main__":
     scraper = CoreKeeperAccessoryScraper()
     scraper.scrape_accessories(debug_mode=False)
-    scraper.save_to_json() 
-
-
