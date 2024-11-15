@@ -1,0 +1,401 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>Weapon Statistics</h1>
+
+    <div class="guide-section">
+        <div class="search-box">
+            <input type="text" id="weaponSearch" class="form-control" placeholder="Search weapons...">
+            <div class="filter-buttons mt-3">
+                <button class="filter-btn active" data-type="all">All</button>
+                <button class="filter-btn" data-type="Melee">Melee</button>
+                <button class="filter-btn" data-type="Ranged">Ranged</button>
+                <button class="filter-btn" data-type="Magic">Magic</button>
+            </div>
+        </div>
+
+        <div class="weapons-grid" id="weaponList">
+            <!-- Weapons will be populated here -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="weaponModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title weapon-name"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="level-selector mb-3">
+                    <select id="levelSelect" class="form-control"></select>
+                </div>
+                <div class="stats-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+:root {
+    --primary-bg: #1a1a1a;
+    --secondary-bg: #242424;
+    --accent-color: #646cff;
+    --accent-hover: #747bff;
+    --text-primary: #ffffff;
+    --text-secondary: #888888;
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+h1 {
+    text-align: center;
+    background: linear-gradient(120deg, var(--accent-color), var(--accent-hover));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 2rem;
+}
+
+.guide-section {
+    background: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: var(--transition);
+}
+
+.guide-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-box {
+    margin-bottom: 2rem;
+}
+
+.weapons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.weapon-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.weapon-card:hover {
+    transform: translateY(-2px);
+    background: rgba(100, 108, 255, 0.1);
+}
+
+.weapon-name {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.weapon-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.stat-label {
+    color: var(--accent-color);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.stat-box:hover {
+    transform: translateY(-2px);
+    background: rgba(100, 108, 255, 0.1);
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--accent-color);
+    color: var(--text-primary);
+    border-radius: var(--border-radius);
+    padding: 0.5rem;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent-hover);
+    box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.25);
+    outline: none;
+}
+
+.modal-content {
+    background: var(--primary-bg);
+    border-radius: var(--border-radius);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--accent-color);
+    padding: 1rem;
+}
+
+.modal-body {
+    padding: 1rem;
+}
+
+.btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.stat-value {
+    color: var(--text-primary);
+}
+
+/* Description and Effects styling */
+.stat-box .stat-value {
+    margin-top: 0.5rem;
+    line-height: 1.4;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: var(--secondary-bg);
+    border: 1px solid var(--accent-color);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-btn:hover {
+    background: var(--accent-color);
+    color: var(--text-primary);
+}
+
+.filter-btn.active {
+    background: var(--accent-color);
+    color: var(--text-primary);
+}
+</style>
+
+<script>
+let weaponModal;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize the modal
+    weaponModal = new bootstrap.Modal(document.getElementById('weaponModal'));
+    
+    fetch('/api/all-stats')
+        .then(response => response.json())
+        .then(data => {
+            const weaponList = document.getElementById('weaponList');
+            weaponList.innerHTML = ''; // Clear existing content
+            
+            Object.entries(data.weapons).forEach(([weaponName, weaponData]) => {
+                // Create weapon card
+                const card = document.createElement('div');
+                card.className = 'weapon-card';
+                
+                // Determine weapon type and color
+                let weaponType = 'Melee';
+                let typeColor = '#FFC107';
+                
+                if (weaponData.type === 'magic') {
+                    weaponType = 'Magic';
+                    typeColor = '#2196F3';
+                } else if (weaponData.type === 'range') {
+                    weaponType = 'Ranged';
+                    typeColor = '#4CAF50';
+                }
+                
+                // Get first level data
+                const firstLevelKey = Object.keys(weaponData.levels)[0];
+                const firstLevel = weaponData.levels[firstLevelKey];
+                
+                // Extract damage values
+                let [damageLow, damageHigh] = firstLevel.damage.split('-').map(num => 
+                    parseInt(num.replace('\u2212', '-').trim())
+                );
+                
+                // Calculate DPS
+                const attackRate = firstLevel.attack_rate || 1;
+                const dps = (((damageLow + damageHigh) / 2) * attackRate).toFixed(1);
+                
+                card.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <div class="weapon-name">${weaponName}</div>
+                        <span style="background: ${typeColor}; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; color: #fff;">
+                            ${weaponType}
+                        </span>
+                    </div>
+                    <div class="weapon-stats">
+                        <div><span class="stat-label">Damage:</span> ${damageLow}-${damageHigh}</div>
+                        <div><span class="stat-label">DPS:</span> ${dps}</div>
+                        <div><span class="stat-label">Speed:</span> ${attackRate.toFixed(2)}</div>
+                        <div><span class="stat-label">Crit:</span> ${((firstLevel.crit_chance || 0.05) * 100).toFixed(1)}%</div>
+                        ${firstLevel.mana ? `<div><span class="stat-label">Mana:</span> ${firstLevel.mana}</div>` : ''}
+                    </div>
+                `;
+                
+                // Add click event listener
+                card.addEventListener('click', () => {
+                    showWeaponDetails(weaponName, weaponData);
+                    weaponModal.show();
+                });
+                
+                weaponList.appendChild(card);
+            });
+        })
+        .catch(error => {
+            console.error('Error loading weapons:', error);
+            document.getElementById('weaponList').innerHTML = 
+                '<div class="error">Error loading weapons. Please try again later.</div>';
+        });
+
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Get the filter type
+            const filterType = button.dataset.type;
+            const searchTerm = document.getElementById('weaponSearch').value.toLowerCase();
+            
+            // Filter weapons
+            const weapons = document.querySelectorAll('.weapon-card');
+            weapons.forEach(weapon => {
+                const weaponType = weapon.querySelector('span').textContent.trim();
+                const weaponName = weapon.querySelector('.weapon-name').textContent.toLowerCase();
+                
+                const matchesType = filterType === 'all' || weaponType === filterType;
+                const matchesSearch = weaponName.includes(searchTerm);
+                
+                weapon.style.display = matchesType && matchesSearch ? '' : 'none';
+            });
+        });
+    });
+});
+
+function showWeaponDetails(weaponName, weaponData) {
+    const levelSelect = document.getElementById('levelSelect');
+    document.querySelector('.modal-title').textContent = weaponName;
+    
+    levelSelect.innerHTML = '';
+    Object.entries(weaponData.levels).forEach(([level, data]) => {
+        const option = document.createElement('option');
+        option.value = level;
+        option.textContent = `Level ${level}`;
+        levelSelect.appendChild(option);
+    });
+    
+    const firstLevelKey = Object.keys(weaponData.levels)[0];
+    updateStats(weaponData.levels[firstLevelKey]);
+    
+    levelSelect.onchange = () => {
+        updateStats(weaponData.levels[levelSelect.value]);
+    };
+}
+
+function updateStats(levelData) {
+    const statsContent = document.querySelector('.stats-content');
+    
+    // Extract damage values
+    let damageLow, damageHigh;
+    if (levelData.damage) {
+        const [low, high] = levelData.damage.split('−').map(num => parseInt(num));
+        damageLow = low;
+        damageHigh = high;
+    } else {
+        damageLow = levelData.damage_low || 0;
+        damageHigh = levelData.damage_high || 0;
+    }
+    
+    const attackRate = levelData.attack_rate || levelData['attack rate'] || 1;
+    const dps = (((damageLow + damageHigh) / 2) * attackRate).toFixed(1);
+    
+    statsContent.innerHTML = `
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-label">Damage</div>
+                <div class="stat-value">${damageLow}-${damageHigh}</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Attack Speed</div>
+                <div class="stat-value">${attackRate.toFixed(2)}</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">DPS</div>
+                <div class="stat-value">${dps}</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Crit Chance</div>
+                <div class="stat-value">${((levelData.crit_chance || 0.05) * 100).toFixed(1)}%</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Durability</div>
+                <div class="stat-value">${levelData.durability}</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Rarity</div>
+                <div class="stat-value">${levelData.rarity}</div>
+            </div>
+            ${levelData.mana ? `
+            <div class="stat-box">
+                <div class="stat-label">Mana Cost</div>
+                <div class="stat-value">${levelData.mana}</div>
+            </div>
+            ` : ''}
+        </div>
+        ${levelData.effects ? `
+        <div class="stat-box mt-3">
+            <div class="stat-label">Effects</div>
+            <div class="stat-value">${levelData.effects}</div>
+        </div>
+        ` : ''}
+        ${levelData.tooltip ? `
+        <div class="stat-box mt-3">
+            <div class="stat-label">Description</div>
+            <div class="stat-value">${levelData.tooltip}</div>
+        </div>
+        ` : ''}
+    `;
+}
+</script>
+{% endblock %} 

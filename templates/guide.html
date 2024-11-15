@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Keeper Guide</title>
+    <style>
+        /* Use same root variables */
+        :root {
+            --primary-bg: #1a1a1a;
+            --secondary-bg: #242424;
+            --accent-color: #646cff;
+            --accent-hover: #747bff;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .guide-section {
+            background: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .guide-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            background: linear-gradient(120deg, var(--accent-color), var(--accent-hover));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            color: var(--accent-hover);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .formula {
+            background: rgba(100, 108, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            font-family: monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .tip {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-left: 4px solid var(--accent-color);
+            margin: 1rem 0;
+        }
+
+        .tip-title {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            color: var(--accent-color);
+        }
+
+        .stat-explanation {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-name {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %}
+    
+    <div class="container">
+        <h1>Core Keeper Combat Guide</h1>
+
+        <div class="guide-section">
+            <h2>DPS Calculation</h2>
+            <p>Understanding how damage is calculated in Core Keeper is crucial for optimizing your builds.</p>
+            
+            <h3>Basic DPS Formula</h3>
+            <div class="formula">
+                DPS = (Base Damage × Damage Multiplier) × Attack Speed × (1 + Crit Chance × Crit Multiplier)
+            </div>
+
+            <div class="tip">
+                <div class="tip-title">Pro Tip</div>
+                <p>When choosing between weapons with similar DPS, consider the attack speed. Faster weapons give you more mobility and flexibility in combat.</p>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2>Combat Stats Explained</h2>
+            
+            <div class="stat-explanation">
+                <span class="stat-name">Base Damage</span>
+                <span>The raw damage output of your weapon before any multipliers</span>
+            </div>
+            
+            <div class="stat-explanation">
+                <span class="stat-name">Attack Speed</span>
+                <span>How many attacks you can perform per second</span>
+            </div>
+            
+            <div class="stat-explanation">
+                <span class="stat-name">Crit Chance</span>
+                <span>Probability of landing a critical hit</span>
+            </div>
+            
+            <div class="stat-explanation">
+                <span class="stat-name">Crit Multiplier</span>
+                <span>Damage multiplier applied on critical hits</span>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2>Stat Caps</h2>
+            <table>
+                <tr>
+                    <th>Stat</th>
+                    <th>Maximum Value</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>Attack Speed</td>
+                    <td>2.5/s</td>
+                    <td>Can be exceeded with buffs</td>
+                </tr>
+                <tr>
+                    <td>Crit Chance</td>
+                    <td>100%</td>
+                    <td>Hard cap</td>
+                </tr>
+                <tr>
+                    <td>Damage Multiplier</td>
+                    <td>None</td>
+                    <td>Stacks multiplicatively</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="guide-section">
+            <h2>Build Tips</h2>
+            
+            <h3>Early Game</h3>
+            <div class="tip">
+                <div class="tip-title">Starting Out</div>
+                <p>Focus on weapons with consistent damage output rather than high crit chance early on. Upgrade your weapon whenever possible.</p>
+            </div>
+            
+            <h3>Mid Game</h3>
+            <div class="tip">
+                <div class="tip-title">Optimization</div>
+                <p>Start incorporating food and potion buffs into your build. Look for gear with complementary stats.</p>
+            </div>
+            
+            <h3>Late Game</h3>
+            <div class="tip">
+                <div class="tip-title">Min-Maxing</div>
+                <p>Focus on maximizing your primary damage source while maintaining a good balance of utility stats.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

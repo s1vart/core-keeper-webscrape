@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Keeper Calculator</title>
+    <style>
+        :root {
+            --primary-bg: #1a1a1a;
+            --secondary-bg: #242424;
+            --accent-color: #646cff;
+            --accent-hover: #747bff;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+        }
+
+        .build-form {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 3.2em;
+            line-height: 1.1;
+            background: linear-gradient(120deg, var(--accent-color), var(--accent-hover));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            background-color: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin: 0 0 1rem 0;
+            color: var(--accent-color);
+        }
+
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--accent-color);
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23646cff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.8rem center;
+            background-size: 1.2rem;
+        }
+
+        select:hover {
+            border-color: var(--accent-hover);
+        }
+
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--accent-color);
+        }
+
+        select[multiple] {
+            height: 150px;
+            background-image: none;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--accent-color);
+            background-color: var(--accent-color);
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        button:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .stats-display {
+            margin-top: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-item {
+            background-color: var(--primary-bg);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .build-form {
+                padding: 1rem;
+                margin: 1rem;
+            }
+        }
+
+        .weapon-selection {
+            margin-bottom: 1rem;
+        }
+
+        #weapon-level-container {
+            margin-top: 0.5rem;
+        }
+
+        .armor-slot {
+            margin-bottom: 1rem;
+        }
+
+        .armor-slot:last-child {
+            margin-bottom: 0;
+        }
+
+        .save-load-section {
+            background: var(--secondary-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-top: 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-group .form-control {
+            flex: 1;
+        }
+
+        .input-group .btn {
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-bg);
+            border-color: var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #bb2d3b;
+            border-color: #bb2d3b;
+        }
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="build-form">
+        <h1>Core Keeper Calculator</h1>
+        
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="/stats" class="stats-link" style="
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: var(--accent-color);
+                color: var(--text-color);
+                text-decoration: none;
+                border-radius: var(--border-radius);
+                margin: 10px 0;
+            ">View All Items Stats</a>
+        </div>
+
+        <div class="two-column">
+            <div class="section">
+                <h2>Weapon</h2>
+                <div class="weapon-selection">
+                    <select id="weapon-type" title="Select your weapon">
+                        <option value="">Select a weapon...</option>
+                    </select>
+                    <div id="weapon-level-container" style="margin-top: 10px; display: none;">
+                        <select id="weapon-level" title="Select weapon level">
+                            <option value="">Select level...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Armor</h2>
+                <div id="armor-slots">
+                    <div class="armor-slot">
+                        <select class="armor-select" title="Select head armor">
+                            <option value="">Select head armor...</option>
+                        </select>
+                    </div>
+                    <div class="armor-slot">
+                        <select class="armor-select" title="Select chest armor">
+                            <option value="">Select chest armor...</option>
+                        </select>
+                    </div>
+                    <div class="armor-slot">
+                        <select class="armor-select" title="Select leg armor">
+                            <option value="">Select leg armor...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="two-column">
+            <div class="section">
+                <h2>Food Buffs</h2>
+                <select id="food-select" multiple>
+                    <option value="">Select food buffs...</option>
+                    </select>
+            </div>
+
+            <div class="section">
+                <h2>Potion Buffs</h2>
+                <select id="potion-select" multiple>
+                    <option value="">Select potion buffs...</option>
+                    </select>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Skills</h2>
+            <select id="skills-select" multiple>
+                <option value="">Select skills...</option>
+                </select>
+        </div>
+
+        <button onclick="calculateBuild()">Calculate Build Stats</button>
+
+        <div class="stats-display" id="stats-output">
+            <h2>Build Stats</h2>
+            <div class="stats-grid">
+                <!-- Stats will be populated here -->
+            </div>
+        </div>
+
+        <div class="build-interface mt-4" style="display: none;" id="buildInterface">
+            <div class="save-load-section">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="buildName" placeholder="Build Name">
+                    <button class="btn btn-primary" onclick="saveBuild()">Save Build</button>
+                </div>
+                <div class="input-group mt-2">
+                    <select class="form-control" id="savedBuilds">
+                        <option value="">Load Saved Build...</option>
+                    </select>
+                    <button class="btn btn-secondary" onclick="loadBuild()">Load</button>
+                    <button class="btn btn-danger" onclick="deleteBuild()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load items and populate dropdowns when page loads
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                console.log('Loading weapon data...');
+                const response = await fetch('/api/all-stats');
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const data = await response.json();
+                console.log('Weapon data loaded:', data);
+
+                // Populate weapon dropdown
+                const weaponSelect = document.getElementById('weapon-type');
+                weaponSelect.innerHTML = '<option value="">Select a weapon...</option>';
+                
+                // Sort weapons alphabetically
+                const weaponNames = Object.keys(data.weapons).sort();
+                
+                weaponNames.forEach(weaponName => {
+                    const option = document.createElement('option');
+                    option.value = weaponName;
+                    option.textContent = weaponName;
+                    weaponSelect.appendChild(option);
+                });
+
+                // Handle weapon selection
+                weaponSelect.addEventListener('change', function() {
+                    const selectedWeapon = this.value;
+                    const weaponInfo = data.weapons[selectedWeapon];
+                    const levelSelect = document.getElementById('weapon-level');
+                    const levelContainer = document.getElementById('weapon-level-container');
+                    
+                    console.log('Selected weapon:', selectedWeapon);
+                    console.log('Weapon info:', weaponInfo);
+                    
+                    if (weaponInfo && weaponInfo.levels) {
+                        levelSelect.innerHTML = '<option value="">Select level...</option>';
+                        // Sort levels numerically
+                        const levels = Object.keys(weaponInfo.levels).sort((a, b) => Number(a) - Number(b));
+                        
+                        levels.forEach(level => {
+                            const option = document.createElement('option');
+                            option.value = level;
+                            option.textContent = `Level ${level}`;
+                            levelSelect.appendChild(option);
+                        });
+                        levelContainer.style.display = 'block';
+                    } else {
+                        levelContainer.style.display = 'none';
+                    }
+                });
+
+                console.log('Weapon selection initialized');
+            } catch (error) {
+                console.error('Error loading weapons:', error);
+                const weaponSelect = document.getElementById('weapon-type');
+                weaponSelect.innerHTML = '<option value="">Error loading weapons</option>';
+            }
+        });
+
+        async function calculateBuild() {
+            const buildData = {
+                weapon: document.getElementById('weapon-level').value || document.getElementById('weapon-type').value,
+                armor: Array.from(document.querySelectorAll('.armor-select'))
+                    .map(select => select.value)
+                    .filter(value => value),
+                food: Array.from(document.getElementById('food-select').selectedOptions)
+                    .map(option => option.value),
+                potions: Array.from(document.getElementById('potion-select').selectedOptions)
+                    .map(option => option.value),
+                skills: Array.from(document.getElementById('skills-select').selectedOptions)
+                    .map(option => option.value)
+            };
+
+            const response = await fetch('/api/calculate-dps', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(buildData)
+            });
+
+            const stats = await response.json();
+            displayStats(stats);
+        }
+
+        function displayStats(stats) {
+            const statsOutput = document.getElementById('stats-output');
+            const statsGrid = statsOutput.querySelector('.stats-grid');
+            
+            statsGrid.innerHTML = `
+                <div class="stat-item">
+                    <div class="stat-value">${stats.total_dps.toFixed(2)}</div>
+                    <div class="stat-label">Total DPS</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${stats.base_stats.damage_low.toFixed(2)} - ${stats.base_stats.damage_high.toFixed(2)}</div>
+                    <div class="stat-label">Damage Range</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${stats.effective_damage_per_hit.toFixed(2)}</div>
+                    <div class="stat-label">Effective Damage</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${stats.attacks_per_second.toFixed(2)}</div>
+                    <div class="stat-label">Attacks per Second</div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html> 
