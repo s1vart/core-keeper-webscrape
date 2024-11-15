@@ -32,7 +32,11 @@ class CoreKeeperAccessoryScraper:
             'min_level': None,
             'max_level': None,
             'levels': {},  # Will store data for each level
-            'url': accessory_url
+            'url': accessory_url,
+            'set_bonus': {
+                'required_items': [],
+                'bonuses': {}
+            }
         }
         try:
             # Get accessory name
@@ -41,7 +45,7 @@ class CoreKeeperAccessoryScraper:
             # Find the infobox
             infobox = soup.find('aside', {'class': 'portable-infobox'})
             if infobox:
-                # Get basic info
+                # First process basic info
                 for label in infobox.find_all('div', {'class': 'pi-item'}):
                     label_name = label.find('div', {'class': 'pi-data-label'})
                     label_value = label.find('div', {'class': 'pi-data-value'})
@@ -50,6 +54,33 @@ class CoreKeeperAccessoryScraper:
                         value = label_value.text.strip()
                         if key == 'category':
                             accessory_data['category'] = [cat.strip() for cat in value.split(',')]
+                
+                # Now find set bonus section specifically
+                set_sections = infobox.find_all('section', {'class': 'pi-item'})
+                for section in set_sections:
+                    header = section.find('h2', {'class': 'pi-header'})
+                    if header and 'set bonus' in header.text.strip().lower():
+                        bonus_div = section.find('div', {'class': 'pi-data-value pi-font'})
+                        if bonus_div:
+                            # Get all set bonus effects - they are direct child divs
+                            bonus_texts = bonus_div.find_all('div', recursive=False)
+                            for bonus_text_div in bonus_texts:
+                                bonus_text = bonus_text_div.text.strip()
+                                if 'set:' in bonus_text.lower():
+                                    # Extract the set size and effect
+                                    parts = bonus_text.lower().split('set:', 1)
+                                    set_size = ''.join(filter(str.isdigit, parts[0]))
+                                    effect = parts[1].strip()
+                                    if set_size:
+                                        accessory_data['set_bonus']['bonuses'][set_size] = effect
+                            
+                            # Get the required items directly from the text
+                            items_list = bonus_div.find('ul')
+                            if items_list:
+                                for item_li in items_list.find_all('li'):
+                                    item_name = item_li.text.strip()
+                                    if item_name and item_name != accessory_data['name']:
+                                        accessory_data['set_bonus']['required_items'].append(item_name)
                 
                 # First, find all available levels from the tabs
                 tabs_list = infobox.find('ul', {'class': 'wds-tabs'})
@@ -102,51 +133,81 @@ class CoreKeeperAccessoryScraper:
             tables = soup.find_all('table', {'class': 'fandom-table'})
             print(f"Found {len(tables)} tables")
             
+            # List of URLs to skip - these are armor/other equipment pages
+            skip_urls = [
+                '/wiki/Diving_Helm',
+                '/wiki/Kelp_Mantle',
+                '/wiki/Scuba_Fins',
+                'Category:Armor',
+                'Category:Equipment'
+            ]
+            
             for table in tables:
                 header = table.find_previous(['h2', 'h3'])
-                if header:
-                    section_text = header.get_text().strip()
-                    print(f"\nProcessing section: {section_text}")
-                    current_category = None
-                    if "Rings" in section_text:
-                        current_category = "rings"
-                    elif "Necklaces" in section_text:
-                        current_category = "necklaces"
-                    elif "Off-hand" in section_text:
-                        current_category = "off-hand"
-                    elif "Bags" in section_text:
-                        current_category = "bags"
-                    elif "Lanterns" in section_text:
-                        current_category = "lanterns"
+                if not header:
+                    continue
                     
-                    if current_category:
-                        print(f"Found category: {current_category}")
-                        for cell in table.find_all('td'):
-                            item_spans = cell.find_all('span', {'class': 'item'})
-                            for item_span in item_spans:
-                                link = item_span.find('a')
-                                if link and link.get('href'):
-                                    href = link.get('href')
-                                    if href and not href.startswith('#'):
-                                        if href.startswith('/'):
-                                            accessory_url = self.base_url + href
-                                        elif href.startswith('http'):
-                                            accessory_url = href
-                                        else:
-                                            accessory_url = f"{self.base_url}/{href}"
-                                        
-                                        if accessory_url in self.scraped_urls:
-                                            print(f"  Skipping already scraped accessory: {accessory_url}")
-                                            continue
-                                        
-                                        print(f"  Scraping accessory: {accessory_url}")
-                                        accessory_data = self.scrape_accessory_page(accessory_url, current_category)
-                                        if accessory_data['name']:
-                                            self.items_data[current_category][accessory_data['name']] = accessory_data
-                                            self.scraped_urls.add(accessory_url)
-                                            if self.debug_mode:
-                                                print("Debug mode: Stopping after first accessory")
-                                                return
+                section_text = header.get_text().strip()
+                print(f"\nProcessing section: {section_text}")
+                
+                current_category = None
+                if "Rings" in section_text:
+                    current_category = "rings"
+                elif "Necklaces" in section_text:
+                    current_category = "necklaces"
+                elif "Off-hand" in section_text:
+                    current_category = "off-hand"
+                elif "Bags" in section_text:
+                    current_category = "bags"
+                elif "Lanterns" in section_text:
+                    current_category = "lanterns"
+                
+                if not current_category:
+                    continue
+                    
+                print(f"Found category: {current_category}")
+                
+                for cell in table.find_all('td'):
+                    item_spans = cell.find_all('span', {'class': 'item'})
+                    for item_span in item_spans:
+                        link = item_span.find('a', href=True)
+                        if link and link.get('href'):
+                            href = link.get('href')
+                            
+                            # Skip if the URL matches any in our skip list
+                            if any(skip_url in href for skip_url in skip_urls):
+                                print(f"  Skipping non-accessory item: {href}")
+                                continue
+                                
+                            # Only process links that are specifically to accessories
+                            if not ('/wiki/Accessories/' in href or 
+                                  'Category:Accessories' in href or
+                                  any(f'_{cat}' in href.lower() for cat in ['ring', 'necklace', 'lantern', 'bag'])):
+                                print(f"  Skipping non-accessory link: {href}")
+                                continue
+                            
+                            if href and not href.startswith('#'):
+                                if href.startswith('/'):
+                                    accessory_url = self.base_url + href
+                                elif href.startswith('http'):
+                                    accessory_url = href
+                                else:
+                                    accessory_url = f"{self.base_url}/{href}"
+                                
+                                if accessory_url in self.scraped_urls:
+                                    print(f"  Skipping already scraped accessory: {accessory_url}")
+                                    continue
+                                
+                                print(f"  Scraping accessory: {accessory_url}")
+                                accessory_data = self.scrape_accessory_page(accessory_url, current_category)
+                                if accessory_data['name']:
+                                    self.items_data[current_category][accessory_data['name']] = accessory_data
+                                    self.scraped_urls.add(accessory_url)
+                                
+                                if self.debug_mode:
+                                    print("Debug mode: Stopping after first accessory")
+                                    return
+                                    
         except Exception as e:
             print(f"Error in scrape_accessories: {str(e)}")
             print("Full error:")
@@ -162,3 +223,5 @@ if __name__ == "__main__":
     scraper = CoreKeeperAccessoryScraper()
     scraper.scrape_accessories(debug_mode=False)
     scraper.save_to_json() 
+
+
