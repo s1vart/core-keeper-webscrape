@@ -1,0 +1,36 @@
+{
+  "pickaxes": {},
+  "sledge_hammers": {},
+  "hand_drills": {
+    "Stormbringer": {
+      "name": "Stormbringer",
+      "type": "hand_drills",
+      "rarity": "Legendary",
+      "durability": "Infinite",
+      "tooltip": "Augmented by a mysterious energy, this weapon unleashes chaining arcs of lightning upon your foes. Holding it sends a tingling sensation through your arms.",
+      "category": [
+        "EquipmentMelee weapon"
+      ],
+      "min_level": 19,
+      "max_level": 19,
+      "levels": {
+        "19": {
+          "type": "ToolLight source",
+          "rarity": "Legendary",
+          "level": "19",
+          "melee damage": "84\u2212102",
+          "attack rate": "5",
+          "durability": "Infinite",
+          "effects": "+1000 mining damage+15% movement speed boost for a short duration after mining a wallWhen targeting an enemy the lightning will chain to 3 other nearby enemies"
+        }
+      },
+      "url": "https://core-keeper.fandom.com/wiki/Stormbringer"
+    }
+  },
+  "shovels": {},
+  "fishing_rods": {},
+  "hoes": {},
+  "watering_cans": {},
+  "paint_brushes": {},
+  "miscellaneous": {}
+}

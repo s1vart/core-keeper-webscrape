@@ -1,0 +1,1102 @@
+{
+  "Mining": {
+    "skills": {
+      "Efficient excavation": {
+        "name": "Efficient excavation",
+        "base_effect": "+2\u201310% mining damage",
+        "tier": "1",
+        "levels": {
+          "1": "+2% mining damage",
+          "2": "+4% mining damage",
+          "3": "+6% mining damage",
+          "4": "+8% mining damage",
+          "5": "+10% mining damage"
+        }
+      },
+      "Meticulous miner": {
+        "name": "Meticulous miner",
+        "base_effect": "+3\u201315% chance to gain an additional ore from walls containing ores",
+        "tier": "2",
+        "levels": {
+          "1": "+3% chance to gain an additional ore from walls containing ores",
+          "2": "+6% chance to gain an additional ore from walls containing ores",
+          "3": "+9% chance to gain an additional ore from walls containing ores",
+          "4": "+12% chance to gain an additional ore from walls containing ores",
+          "5": "+15% chance to gain an additional ore from walls containing ores"
+        }
+      },
+      "Self-mending alloy": {
+        "name": "Self-mending alloy",
+        "base_effect": "Gain +2\u201310 durability on your tool, when breaking walls containing ores",
+        "tier": "2",
+        "levels": {
+          "1": "2 Gain durability on your tool, when breaking walls containing ores",
+          "2": "4 Gain durability on your tool, when breaking walls containing ores",
+          "3": "6 Gain durability on your tool, when breaking walls containing ores",
+          "4": "8 Gain durability on your tool, when breaking walls containing ores",
+          "5": "10 Gain durability on your tool, when breaking walls containing ores"
+        }
+      },
+      "Miner's strength": {
+        "name": "Miner's strength",
+        "base_effect": "+2\u201310% of mining damage added as melee damage",
+        "tier": "3",
+        "levels": {
+          "1": "+2% of mining damage added as melee damage",
+          "2": "+4% of mining damage added as melee damage",
+          "3": "+6% of mining damage added as melee damage",
+          "4": "+8% of mining damage added as melee damage",
+          "5": "+10% of mining damage added as melee damage"
+        }
+      },
+      "Mine, mine, mine!": {
+        "name": "Mine, mine, mine!",
+        "base_effect": "+3\u201315% mining speed",
+        "tier": "3",
+        "levels": {
+          "1": "+3% mining speed",
+          "2": "+6% mining speed",
+          "3": "+9% mining speed",
+          "4": "+12% mining speed",
+          "5": "+15% mining speed"
+        }
+      },
+      "Explosives engineer": {
+        "name": "Explosives engineer",
+        "base_effect": "+4\u201320% explosives damage",
+        "tier": "3",
+        "levels": {
+          "1": "+4% explosives damage",
+          "2": "+8% explosives damage",
+          "3": "+12% explosives damage",
+          "4": "+16% explosives damage",
+          "5": "+20% explosives damage"
+        }
+      },
+      "Pick and run!": {
+        "name": "Pick and run!",
+        "base_effect": "+4\u201320% movement speed boost for a short duration after mining a wall",
+        "tier": "4",
+        "levels": {
+          "1": "+4% movement speed boost for a short duration after mining a wall",
+          "2": "+8% movement speed boost for a short duration after mining a wall",
+          "3": "+12% movement speed boost for a short duration after mining a wall",
+          "4": "+16% movement speed boost for a short duration after mining a wall",
+          "5": "+20% movement speed boost for a short duration after mining a wall"
+        }
+      },
+      "Archaeologist": {
+        "name": "Archaeologist",
+        "base_effect": "+0.2\u20131% chance to drop a valuable item from any mined wall",
+        "tier": "4",
+        "levels": {
+          "1": "+0.2% chance to drop a valuable item from any mined wall",
+          "2": "+0.4% chance to drop a valuable item from any mined wall",
+          "3": "+0.6% chance to drop a valuable item from any mined wall",
+          "4": "+0.8% chance to drop a valuable item from any mined wall",
+          "5": "+1% chance to drop a valuable item from any mined wall"
+        }
+      }
+    }
+  },
+  "Running": {
+    "skills": {
+      "Endurance runner": {
+        "name": "Endurance runner",
+        "base_effect": "+5\u201325% less food drained when running",
+        "tier": "1",
+        "levels": {
+          "1": "+5% less food drained when running",
+          "2": "+10% less food drained when running",
+          "3": "+15% less food drained when running",
+          "4": "+20% less food drained when running",
+          "5": "+25% less food drained when running"
+        }
+      },
+      "Balanced stance": {
+        "name": "Balanced stance",
+        "base_effect": "+5\u201325% dodge chance after standing still for a short duration",
+        "tier": "2",
+        "levels": {
+          "1": "+5% dodge chance after standing still for a short duration",
+          "2": "+10% dodge chance after standing still for a short duration",
+          "3": "+15% dodge chance after standing still for a short duration",
+          "4": "+20% dodge chance after standing still for a short duration",
+          "5": "+25% dodge chance after standing still for a short duration"
+        }
+      },
+      "Gotta go fast!": {
+        "name": "Gotta go fast!",
+        "base_effect": "+2\u201310% movement speed after running consistently for a short duration",
+        "tier": "2",
+        "levels": {
+          "1": "+2% movement speed after running consistently for a short duration",
+          "2": "+4% movement speed after running consistently for a short duration",
+          "3": "+6% movement speed after running consistently for a short duration",
+          "4": "+8% movement speed after running consistently for a short duration",
+          "5": "+10% movement speed after running consistently for a short duration"
+        }
+      },
+      "On your toes": {
+        "name": "On your toes",
+        "base_effect": "+4\u201320% movement speed boost for a short duration after dodging an attack",
+        "tier": "3",
+        "levels": {
+          "1": "+4% movement speed boost for a short duration after dodging an attack",
+          "2": "+8% movement speed boost for a short duration after dodging an attack",
+          "3": "+12% movement speed boost for a short duration after dodging an attack",
+          "4": "+16% movement speed boost for a short duration after dodging an attack",
+          "5": "+20% movement speed boost for a short duration after dodging an attack"
+        }
+      },
+      "Escape artist": {
+        "name": "Escape artist",
+        "base_effect": "Snare and stun durations reduced by +10\u201350%",
+        "tier": "3",
+        "levels": {
+          "1": "10 Snare and stun durations reduced by %",
+          "2": "20 Snare and stun durations reduced by %",
+          "3": "30 Snare and stun durations reduced by %",
+          "4": "40 Snare and stun durations reduced by %",
+          "5": "50 Snare and stun durations reduced by %"
+        }
+      },
+      "Keeping tempo": {
+        "name": "Keeping tempo",
+        "base_effect": "+3\u201315% damage after consistently running for a short duration",
+        "tier": "3",
+        "levels": {
+          "1": "+3% damage after consistently running for a short duration",
+          "2": "+6% damage after consistently running for a short duration",
+          "3": "+9% damage after consistently running for a short duration",
+          "4": "+12% damage after consistently running for a short duration",
+          "5": "+15% damage after consistently running for a short duration"
+        }
+      },
+      "Encumbering presence": {
+        "name": "Encumbering presence",
+        "base_effect": "Any nearby enemies movement speed is reduced by 4\u201320%",
+        "tier": "4",
+        "levels": {
+          "1": "4 Any nearby enemies movement speed is reduced by%",
+          "2": "8 Any nearby enemies movement speed is reduced by%",
+          "3": "12 Any nearby enemies movement speed is reduced by%",
+          "4": "16 Any nearby enemies movement speed is reduced by%",
+          "5": "20 Any nearby enemies movement speed is reduced by%"
+        }
+      },
+      "Breaking barriers": {
+        "name": "Breaking barriers",
+        "base_effect": "+6\u201330% armor of current movement speed increase",
+        "tier": "4",
+        "levels": {
+          "1": "+6% armor of current movement speed increase",
+          "2": "+12% armor of current movement speed increase",
+          "3": "+18% armor of current movement speed increase",
+          "4": "+24% armor of current movement speed increase",
+          "5": "+30% armor of current movement speed increase"
+        }
+      }
+    }
+  },
+  "Melee combat": {
+    "skills": {
+      "Quick strikes": {
+        "name": "Quick strikes",
+        "base_effect": "+2\u201310% melee attack speed",
+        "tier": "1",
+        "levels": {
+          "1": "+2% melee attack speed",
+          "2": "+4% melee attack speed",
+          "3": "+6% melee attack speed",
+          "4": "+8% melee attack speed",
+          "5": "+10% melee attack speed"
+        }
+      },
+      "Building anger": {
+        "name": "Building anger",
+        "base_effect": "Gain 2% melee damage every time an enemy is hit, stacks up to 2\u201310 times",
+        "tier": "2",
+        "levels": {
+          "1": "2 Gain 2% melee damage every time an enemy is hit, stacks up totimes",
+          "2": "4 Gain 2% melee damage every time an enemy is hit, stacks up totimes",
+          "3": "6 Gain 2% melee damage every time an enemy is hit, stacks up totimes",
+          "4": "8 Gain 2% melee damage every time an enemy is hit, stacks up totimes",
+          "5": "10 Gain 2% melee damage every time an enemy is hit, stacks up totimes"
+        }
+      },
+      "Fast and furious": {
+        "name": "Fast and furious",
+        "base_effect": "+2\u201310% chance on melee hit to increase melee attack speed by 50% for a short duration",
+        "tier": "2",
+        "levels": {
+          "1": "+2% chance on melee hit to increase melee attack speed by 50% for a short duration",
+          "2": "+4% chance on melee hit to increase melee attack speed by 50% for a short duration",
+          "3": "+6% chance on melee hit to increase melee attack speed by 50% for a short duration",
+          "4": "+8% chance on melee hit to increase melee attack speed by 50% for a short duration",
+          "5": "+10% chance on melee hit to increase melee attack speed by 50% for a short duration"
+        }
+      },
+      "Heavy swings": {
+        "name": "Heavy swings",
+        "base_effect": "+3\u201315% knockback chance",
+        "tier": "3",
+        "levels": {
+          "1": "+3% knockback chance",
+          "2": "+6% knockback chance",
+          "3": "+9% knockback chance",
+          "4": "+12% knockback chance",
+          "5": "+15% knockback chance"
+        }
+      },
+      "Stubborn fighter": {
+        "name": "Stubborn fighter",
+        "base_effect": "Gain +3\u201315% melee damage when hitting the same target successively",
+        "tier": "3",
+        "levels": {
+          "1": "3 Gain % melee damage when hitting the same target successively",
+          "2": "6 Gain % melee damage when hitting the same target successively",
+          "3": "9 Gain % melee damage when hitting the same target successively",
+          "4": "12 Gain % melee damage when hitting the same target successively",
+          "5": "15 Gain % melee damage when hitting the same target successively"
+        }
+      },
+      "Taking a step back": {
+        "name": "Taking a step back",
+        "base_effect": "+4\u201320% chance on melee hit to increase range damage by 30%",
+        "tier": "3",
+        "levels": {
+          "1": "+4% chance on melee hit to increase range damage by 30%",
+          "2": "+8% chance on melee hit to increase range damage by 30%",
+          "3": "+12% chance on melee hit to increase range damage by 30%",
+          "4": "+16% chance on melee hit to increase range damage by 30%",
+          "5": "+20% chance on melee hit to increase range damage by 30%"
+        }
+      },
+      "Seething blade": {
+        "name": "Seething blade",
+        "base_effect": "10% chance on melee hit to restore +1\u20135% health",
+        "tier": "4",
+        "levels": {
+          "1": "1 10% chance on melee hit to restore % health",
+          "2": "2 10% chance on melee hit to restore % health",
+          "3": "3 10% chance on melee hit to restore % health",
+          "4": "4 10% chance on melee hit to restore % health",
+          "5": "5 10% chance on melee hit to restore % health"
+        }
+      },
+      "Strength of the Ancients": {
+        "name": "Strength of the Ancients",
+        "base_effect": "+4\u201320% damage against bosses",
+        "tier": "4",
+        "levels": {
+          "1": "+4% damage against bosses",
+          "2": "+8% damage against bosses",
+          "3": "+12% damage against bosses",
+          "4": "+16% damage against bosses",
+          "5": "+20% damage against bosses"
+        }
+      }
+    }
+  },
+  "Vitality": {
+    "skills": {
+      "Maxed out!": {
+        "name": "Maxed out!",
+        "base_effect": "+6\u201330% of all skill points added to max health",
+        "tier": "1",
+        "levels": {
+          "1": "+6% of all skill points added to max health",
+          "2": "+12% of all skill points added to max health",
+          "3": "+18% of all skill points added to max health",
+          "4": "+24% of all skill points added to max health",
+          "5": "+30% of all skill points added to max health"
+        }
+      },
+      "Strong and healthy": {
+        "name": "Strong and healthy",
+        "base_effect": "+2\u201310% damage while at max health",
+        "tier": "2",
+        "levels": {
+          "1": "+2% damage while at max health",
+          "2": "+4% damage while at max health",
+          "3": "+6% damage while at max health",
+          "4": "+8% damage while at max health",
+          "5": "+10% damage while at max health"
+        }
+      },
+      "Desperate fighter": {
+        "name": "Desperate fighter",
+        "base_effect": "+4\u201320% damage while at low health",
+        "tier": "2",
+        "levels": {
+          "1": "+4% damage while at low health",
+          "2": "+8% damage while at low health",
+          "3": "+12% damage while at low health",
+          "4": "+16% damage while at low health",
+          "5": "+20% damage while at low health"
+        }
+      },
+      "Stayin' alive": {
+        "name": "Stayin' alive",
+        "base_effect": "Gain +0.2\u20131 health every sec while below half max health",
+        "tier": "3",
+        "levels": {
+          "1": "0.2 Gain health every sec while below half max health",
+          "2": "0.4 Gain health every sec while below half max health",
+          "3": "0.6 Gain health every sec while below half max health",
+          "4": "0.8 Gain health every sec while below half max health",
+          "5": "1 Gain health every sec while below half max health"
+        }
+      },
+      "Healing potency": {
+        "name": "Healing potency",
+        "base_effect": "+6\u201330% more healing from health over time regeneration",
+        "tier": "3",
+        "levels": {
+          "1": "+6% more healing from health over time regeneration",
+          "2": "+12% more healing from health over time regeneration",
+          "3": "+18% more healing from health over time regeneration",
+          "4": "+24% more healing from health over time regeneration",
+          "5": "+30% more healing from health over time regeneration"
+        }
+      },
+      "Lingering potions": {
+        "name": "Lingering potions",
+        "base_effect": "Healing potions also heal for +6\u201330% of health gained from the potion over time",
+        "tier": "3",
+        "levels": {
+          "1": "6 Healing potions also heal for % of health gained from the potion over time",
+          "2": "12 Healing potions also heal for % of health gained from the potion over time",
+          "3": "18 Healing potions also heal for % of health gained from the potion over time",
+          "4": "24 Healing potions also heal for % of health gained from the potion over time",
+          "5": "30 Healing potions also heal for % of health gained from the potion over time"
+        }
+      },
+      "Protection of the Ancients": {
+        "name": "Protection of the Ancients",
+        "base_effect": "+3\u201315% reduced damage taken from bosses",
+        "tier": "4",
+        "levels": {
+          "1": "+3% reduced damage taken from bosses",
+          "2": "+6% reduced damage taken from bosses",
+          "3": "+9% reduced damage taken from bosses",
+          "4": "+12% reduced damage taken from bosses",
+          "5": "+15% reduced damage taken from bosses"
+        }
+      },
+      "Cheat death": {
+        "name": "Cheat death",
+        "base_effect": "+2\u201310% chance to restore a bit of health instead of dying when taking lethal damage",
+        "tier": "4",
+        "levels": {
+          "1": "+2% chance to restore a bit of health instead of dying when taking lethal damage",
+          "2": "+4% chance to restore a bit of health instead of dying when taking lethal damage",
+          "3": "+6% chance to restore a bit of health instead of dying when taking lethal damage",
+          "4": "+8% chance to restore a bit of health instead of dying when taking lethal damage",
+          "5": "+10% chance to restore a bit of health instead of dying when taking lethal damage"
+        }
+      }
+    }
+  },
+  "Crafting": {
+    "skills": {
+      "Base builder": {
+        "name": "Base builder",
+        "base_effect": "+6\u201330% chance to gain an extra item when crafting any wall, floor, bridge or fence",
+        "tier": "1",
+        "levels": {
+          "1": "+6% chance to gain an extra item when crafting any wall, floor, bridge or fence",
+          "2": "+12% chance to gain an extra item when crafting any wall, floor, bridge or fence",
+          "3": "+18% chance to gain an extra item when crafting any wall, floor, bridge or fence",
+          "4": "+24% chance to gain an extra item when crafting any wall, floor, bridge or fence",
+          "5": "+30% chance to gain an extra item when crafting any wall, floor, bridge or fence"
+        }
+      },
+      "The right tools in the right hands": {
+        "name": "The right tools in the right hands",
+        "base_effect": "+4\u201320% chance to not lose durability when using tools and weapons",
+        "tier": "2",
+        "levels": {
+          "1": "+4% chance to not lose durability when using tools and weapons",
+          "2": "+8% chance to not lose durability when using tools and weapons",
+          "3": "+12% chance to not lose durability when using tools and weapons",
+          "4": "+16% chance to not lose durability when using tools and weapons",
+          "5": "+20% chance to not lose durability when using tools and weapons"
+        }
+      },
+      "High quality equipment": {
+        "name": "High quality equipment",
+        "base_effect": "+4\u201320% chance to not lose durability on equipment when taking damage",
+        "tier": "2",
+        "levels": {
+          "1": "+4% chance to not lose durability on equipment when taking damage",
+          "2": "+8% chance to not lose durability on equipment when taking damage",
+          "3": "+12% chance to not lose durability on equipment when taking damage",
+          "4": "+16% chance to not lose durability on equipment when taking damage",
+          "5": "+20% chance to not lose durability on equipment when taking damage"
+        }
+      },
+      "Alchemist": {
+        "name": "Alchemist",
+        "base_effect": "+4\u201320% chance to gain an extra item when crafting any item at the alchemy table or distillery",
+        "tier": "3",
+        "levels": {
+          "1": "+4% chance to gain an extra item when crafting any item at the alchemy table or distillery",
+          "2": "+8% chance to gain an extra item when crafting any item at the alchemy table or distillery",
+          "3": "+12% chance to gain an extra item when crafting any item at the alchemy table or distillery",
+          "4": "+16% chance to gain an extra item when crafting any item at the alchemy table or distillery",
+          "5": "+20% chance to gain an extra item when crafting any item at the alchemy table or distillery"
+        }
+      },
+      "Industry specialist": {
+        "name": "Industry specialist",
+        "base_effect": "+1\u20135 extra items gained when crafting rails, wires or conveyor belts.",
+        "tier": "3",
+        "levels": {
+          "1": "1 extra items gained when crafting rails, wires or conveyor belts.",
+          "2": "2 extra items gained when crafting rails, wires or conveyor belts.",
+          "3": "3 extra items gained when crafting rails, wires or conveyor belts.",
+          "4": "4 extra items gained when crafting rails, wires or conveyor belts.",
+          "5": "5 extra items gained when crafting rails, wires or conveyor belts."
+        }
+      },
+      "Blacksmith": {
+        "name": "Blacksmith",
+        "base_effect": "Crafting items at the anvil and repairing items costs 5\u201325% less materials",
+        "tier": "3",
+        "levels": {
+          "1": "5 Crafting items at the anvil and repairing items costs% less materials",
+          "2": "10 Crafting items at the anvil and repairing items costs% less materials",
+          "3": "15 Crafting items at the anvil and repairing items costs% less materials",
+          "4": "20 Crafting items at the anvil and repairing items costs% less materials",
+          "5": "25 Crafting items at the anvil and repairing items costs% less materials"
+        }
+      },
+      "Jewelry crafter": {
+        "name": "Jewelry crafter",
+        "base_effect": "+10\u201350% chance to gain a polished version of any item crafted at the jewelry workbench",
+        "tier": "4",
+        "levels": {
+          "1": "+10% chance to gain a polished version of any item crafted at the jewelry workbench",
+          "2": "+20% chance to gain a polished version of any item crafted at the jewelry workbench",
+          "3": "+30% chance to gain a polished version of any item crafted at the jewelry workbench",
+          "4": "+40% chance to gain a polished version of any item crafted at the jewelry workbench",
+          "5": "+50% chance to gain a polished version of any item crafted at the jewelry workbench"
+        }
+      },
+      "Unbreakable": {
+        "name": "Unbreakable",
+        "base_effect": "+6\u201330% armor while at low health",
+        "tier": "4",
+        "levels": {
+          "1": "+6% armor while at low health",
+          "2": "+12% armor while at low health",
+          "3": "+18% armor while at low health",
+          "4": "+24% armor while at low health",
+          "5": "+30% armor while at low health"
+        }
+      }
+    }
+  },
+  "Range combat": {
+    "skills": {
+      "Rapid shots": {
+        "name": "Rapid shots",
+        "base_effect": "+2\u201310% range attack speed",
+        "tier": "1",
+        "levels": {
+          "1": "+2% range attack speed",
+          "2": "+4% range attack speed",
+          "3": "+6% range attack speed",
+          "4": "+8% range attack speed",
+          "5": "+10% range attack speed"
+        }
+      },
+      "Keeping momentum": {
+        "name": "Keeping momentum",
+        "base_effect": "Gain 2% range damage every time an enemy is shot, stacks up to 2\u201310 times",
+        "tier": "2",
+        "levels": {
+          "1": "2 Gain 2% range damage every time an enemy is shot, stacks up totimes",
+          "2": "4 Gain 2% range damage every time an enemy is shot, stacks up totimes",
+          "3": "6 Gain 2% range damage every time an enemy is shot, stacks up totimes",
+          "4": "8 Gain 2% range damage every time an enemy is shot, stacks up totimes",
+          "5": "10 Gain 2% range damage every time an enemy is shot, stacks up totimes"
+        }
+      },
+      "Weakness detection": {
+        "name": "Weakness detection",
+        "base_effect": "+2\u201310% chance on ranged hit to increase critical hit chance by 100% for a short duration",
+        "tier": "2",
+        "levels": {
+          "1": "+2% chance on ranged hit to increase critical hit chance by 100% for a short duration",
+          "2": "+4% chance on ranged hit to increase critical hit chance by 100% for a short duration",
+          "3": "+6% chance on ranged hit to increase critical hit chance by 100% for a short duration",
+          "4": "+8% chance on ranged hit to increase critical hit chance by 100% for a short duration",
+          "5": "+10% chance on ranged hit to increase critical hit chance by 100% for a short duration"
+        }
+      },
+      "Slimy bullets": {
+        "name": "Slimy bullets",
+        "base_effect": "20% chance to slow down target by 8\u201340% on ranged hit",
+        "tier": "3",
+        "levels": {
+          "1": "8 20% chance to slow down target by% on ranged hit",
+          "2": "16 20% chance to slow down target by% on ranged hit",
+          "3": "24 20% chance to slow down target by% on ranged hit",
+          "4": "32 20% chance to slow down target by% on ranged hit",
+          "5": "40 20% chance to slow down target by% on ranged hit"
+        }
+      },
+      "Charging in": {
+        "name": "Charging in",
+        "base_effect": "+4\u201320% chance on ranged hit to increase melee damage by 30%",
+        "tier": "3",
+        "levels": {
+          "1": "+4% chance on ranged hit to increase melee damage by 30%",
+          "2": "+8% chance on ranged hit to increase melee damage by 30%",
+          "3": "+12% chance on ranged hit to increase melee damage by 30%",
+          "4": "+16% chance on ranged hit to increase melee damage by 30%",
+          "5": "+20% chance on ranged hit to increase melee damage by 30%"
+        }
+      },
+      "Stun shot": {
+        "name": "Stun shot",
+        "base_effect": "+4\u201320% chance to stun targets on ranged hit",
+        "tier": "3",
+        "levels": {
+          "1": "+4% chance to stun targets on ranged hit",
+          "2": "+8% chance to stun targets on ranged hit",
+          "3": "+12% chance to stun targets on ranged hit",
+          "4": "+16% chance to stun targets on ranged hit",
+          "5": "+20% chance to stun targets on ranged hit"
+        }
+      },
+      "Focused accuracy": {
+        "name": "Focused accuracy",
+        "base_effect": "+5\u201325% range damage after standing still for a short duration",
+        "tier": "4",
+        "levels": {
+          "1": "+5% range damage after standing still for a short duration",
+          "2": "+10% range damage after standing still for a short duration",
+          "3": "+15% range damage after standing still for a short duration",
+          "4": "+20% range damage after standing still for a short duration",
+          "5": "+25% range damage after standing still for a short duration"
+        }
+      },
+      "Amplified precision": {
+        "name": "Amplified precision",
+        "base_effect": "+8\u201340% critical hit damage",
+        "tier": "4",
+        "levels": {
+          "1": "+8% critical hit damage",
+          "2": "+16% critical hit damage",
+          "3": "+24% critical hit damage",
+          "4": "+32% critical hit damage",
+          "5": "+40% critical hit damage"
+        }
+      }
+    }
+  },
+  "Gardening": {
+    "skills": {
+      "Grateful gardener": {
+        "name": "Grateful gardener",
+        "base_effect": "+5\u201325% chance to gain a seed when harvesting plants",
+        "tier": "1",
+        "levels": {
+          "1": "+5% chance to gain a seed when harvesting plants",
+          "2": "+10% chance to gain a seed when harvesting plants",
+          "3": "+15% chance to gain a seed when harvesting plants",
+          "4": "+20% chance to gain a seed when harvesting plants",
+          "5": "+25% chance to gain a seed when harvesting plants"
+        }
+      },
+      "Eat your vegetables!": {
+        "name": "Eat your vegetables!",
+        "base_effect": "+5\u201325% food when eating plants or cooked food made out of plants",
+        "tier": "2",
+        "levels": {
+          "1": "+5% food when eating plants or cooked food made out of plants",
+          "2": "+10% food when eating plants or cooked food made out of plants",
+          "3": "+15% food when eating plants or cooked food made out of plants",
+          "4": "+20% food when eating plants or cooked food made out of plants",
+          "5": "+25% food when eating plants or cooked food made out of plants"
+        }
+      },
+      "Feast for the eyes": {
+        "name": "Feast for the eyes",
+        "base_effect": "+1\u20135 food gained when harvesting plants",
+        "tier": "2",
+        "levels": {
+          "1": "1 food gained when harvesting plants",
+          "2": "2 food gained when harvesting plants",
+          "3": "3 food gained when harvesting plants",
+          "4": "4 food gained when harvesting plants",
+          "5": "5 food gained when harvesting plants"
+        }
+      },
+      "Thorny weapons": {
+        "name": "Thorny weapons",
+        "base_effect": "+5\u201325% critical hit damage",
+        "tier": "3",
+        "levels": {
+          "1": "+5% critical hit damage",
+          "2": "+10% critical hit damage",
+          "3": "+15% critical hit damage",
+          "4": "+20% critical hit damage",
+          "5": "+25% critical hit damage"
+        }
+      },
+      "Thorny skin": {
+        "name": "Thorny skin",
+        "base_effect": "+10\u201350 thorns damage",
+        "tier": "3",
+        "levels": {
+          "1": "10 thorns damage",
+          "2": "20 thorns damage",
+          "3": "30 thorns damage",
+          "4": "40 thorns damage",
+          "5": "50 thorns damage"
+        }
+      },
+      "Poison coated weapons": {
+        "name": "Poison coated weapons",
+        "base_effect": "+3\u201315% chance to apply poison on hit, reduces enemy healing received by 75%",
+        "tier": "3",
+        "levels": {
+          "1": "+3% chance to apply poison on hit, reduces enemy healing received by 75%",
+          "2": "+6% chance to apply poison on hit, reduces enemy healing received by 75%",
+          "3": "+9% chance to apply poison on hit, reduces enemy healing received by 75%",
+          "4": "+12% chance to apply poison on hit, reduces enemy healing received by 75%",
+          "5": "+15% chance to apply poison on hit, reduces enemy healing received by 75%"
+        }
+      },
+      "Expert gardener": {
+        "name": "Expert gardener",
+        "base_effect": "+3\u201315% chance that plants planted by you become golden",
+        "tier": "4",
+        "levels": {
+          "1": "+3% chance that plants planted by you become golden",
+          "2": "+6% chance that plants planted by you become golden",
+          "3": "+9% chance that plants planted by you become golden",
+          "4": "+12% chance that plants planted by you become golden",
+          "5": "+15% chance that plants planted by you become golden"
+        }
+      },
+      "Potent poison": {
+        "name": "Potent poison",
+        "base_effect": "+5\u201325% damage against poisoned targets",
+        "tier": "4",
+        "levels": {
+          "1": "+5% damage against poisoned targets",
+          "2": "+10% damage against poisoned targets",
+          "3": "+15% damage against poisoned targets",
+          "4": "+20% damage against poisoned targets",
+          "5": "+25% damage against poisoned targets"
+        }
+      }
+    }
+  },
+  "Fishing": {
+    "skills": {
+      "Improved bait": {
+        "name": "Improved bait",
+        "base_effect": "Fish (and other things) bite +5\u201325% faster",
+        "tier": "1",
+        "levels": {
+          "1": "5 Fish (and other things) bite % faster",
+          "2": "10 Fish (and other things) bite % faster",
+          "3": "15 Fish (and other things) bite % faster",
+          "4": "20 Fish (and other things) bite % faster",
+          "5": "25 Fish (and other things) bite % faster"
+        }
+      },
+      "Fisherman's luck": {
+        "name": "Fisherman's luck",
+        "base_effect": "+4\u201320% chance to get a fish on the hook",
+        "tier": "2",
+        "levels": {
+          "1": "+4% chance to get a fish on the hook",
+          "2": "+8% chance to get a fish on the hook",
+          "3": "+12% chance to get a fish on the hook",
+          "4": "+16% chance to get a fish on the hook",
+          "5": "+20% chance to get a fish on the hook"
+        }
+      },
+      "Angler's advantage": {
+        "name": "Angler's advantage",
+        "base_effect": "+2\u201310% chance for higher rarity fish to bite",
+        "tier": "2",
+        "levels": {
+          "1": "+2% chance for higher rarity fish to bite",
+          "2": "+4% chance for higher rarity fish to bite",
+          "3": "+6% chance for higher rarity fish to bite",
+          "4": "+8% chance for higher rarity fish to bite",
+          "5": "+10% chance for higher rarity fish to bite"
+        }
+      },
+      "Studied patterns": {
+        "name": "Studied patterns",
+        "base_effect": "+2\u201310% dodge chance",
+        "tier": "3",
+        "levels": {
+          "1": "+2% dodge chance",
+          "2": "+4% dodge chance",
+          "3": "+6% dodge chance",
+          "4": "+8% dodge chance",
+          "5": "+10% dodge chance"
+        }
+      },
+      "Steady feet": {
+        "name": "Steady feet",
+        "base_effect": "+10\u201350% reduced impact of slippery movement",
+        "tier": "3",
+        "levels": {
+          "1": "+10% reduced impact of slippery movement",
+          "2": "+20% reduced impact of slippery movement",
+          "3": "+30% reduced impact of slippery movement",
+          "4": "+40% reduced impact of slippery movement",
+          "5": "+50% reduced impact of slippery movement"
+        }
+      },
+      "Chewy bait": {
+        "name": "Chewy bait",
+        "base_effect": "+5\u201325% chance bait will not be consumed when catching a fish",
+        "tier": "3",
+        "levels": {
+          "1": "+5% chance bait will not be consumed when catching a fish",
+          "2": "+10% chance bait will not be consumed when catching a fish",
+          "3": "+15% chance bait will not be consumed when catching a fish",
+          "4": "+20% chance bait will not be consumed when catching a fish",
+          "5": "+25% chance bait will not be consumed when catching a fish"
+        }
+      },
+      "Well-trained aim": {
+        "name": "Well-trained aim",
+        "base_effect": "+6\u201330% of fishing added as range damage",
+        "tier": "4",
+        "levels": {
+          "1": "+6% of fishing added as range damage",
+          "2": "+12% of fishing added as range damage",
+          "3": "+18% of fishing added as range damage",
+          "4": "+24% of fishing added as range damage",
+          "5": "+30% of fishing added as range damage"
+        }
+      },
+      "Power of Omega-3!": {
+        "name": "Power of Omega-3!",
+        "base_effect": "+3\u201315% damage against bosses after eating fish or cooked food made out of fish",
+        "tier": "4",
+        "levels": {
+          "1": "+3% damage against bosses after eating fish or cooked food made out of fish",
+          "2": "+6% damage against bosses after eating fish or cooked food made out of fish",
+          "3": "+9% damage against bosses after eating fish or cooked food made out of fish",
+          "4": "+12% damage against bosses after eating fish or cooked food made out of fish",
+          "5": "+15% damage against bosses after eating fish or cooked food made out of fish"
+        }
+      }
+    }
+  },
+  "Cooking": {
+    "skills": {
+      "Utilizing every nutrient": {
+        "name": "Utilizing every nutrient",
+        "base_effect": "+5\u201325% food from cooked food",
+        "tier": "1",
+        "levels": {
+          "1": "+5% food from cooked food",
+          "2": "+10% food from cooked food",
+          "3": "+15% food from cooked food",
+          "4": "+20% food from cooked food",
+          "5": "+25% food from cooked food"
+        }
+      },
+      "Not so picky": {
+        "name": "Not so picky",
+        "base_effect": "Well fed buffs are gained at +5\u201325% lower food",
+        "tier": "2",
+        "levels": {
+          "1": "5 Well fed buffs are gained at % lower food",
+          "2": "10 Well fed buffs are gained at % lower food",
+          "3": "15 Well fed buffs are gained at % lower food",
+          "4": "20 Well fed buffs are gained at % lower food",
+          "5": "25 Well fed buffs are gained at % lower food"
+        }
+      },
+      "Healthy diet": {
+        "name": "Healthy diet",
+        "base_effect": "Well fed buffs are +20\u2013100% stronger",
+        "tier": "2",
+        "levels": {
+          "1": "20 Well fed buffs are % stronger",
+          "2": "40 Well fed buffs are % stronger",
+          "3": "60 Well fed buffs are % stronger",
+          "4": "80 Well fed buffs are % stronger",
+          "5": "100 Well fed buffs are % stronger"
+        }
+      },
+      "Fast food": {
+        "name": "Fast food",
+        "base_effect": "+1\u20135% melee attack speed when eating cooked food",
+        "tier": "3",
+        "levels": {
+          "1": "+1% melee attack speed when eating cooked food",
+          "2": "+2% melee attack speed when eating cooked food",
+          "3": "+3% melee attack speed when eating cooked food",
+          "4": "+4% melee attack speed when eating cooked food",
+          "5": "+5% melee attack speed when eating cooked food"
+        }
+      },
+      "Long-lasting food": {
+        "name": "Long-lasting food",
+        "base_effect": "+6\u201330% longer cooked food buff durations",
+        "tier": "3",
+        "levels": {
+          "1": "+6% longer cooked food buff durations",
+          "2": "+12% longer cooked food buff durations",
+          "3": "+18% longer cooked food buff durations",
+          "4": "+24% longer cooked food buff durations",
+          "5": "+30% longer cooked food buff durations"
+        }
+      },
+      "The smell of food": {
+        "name": "The smell of food",
+        "base_effect": "+4\u201320% damage dealt by you and all nearby allies",
+        "tier": "3",
+        "levels": {
+          "1": "+4% damage dealt by you and all nearby allies",
+          "2": "+8% damage dealt by you and all nearby allies",
+          "3": "+12% damage dealt by you and all nearby allies",
+          "4": "+16% damage dealt by you and all nearby allies",
+          "5": "+20% damage dealt by you and all nearby allies"
+        }
+      },
+      "Master chef": {
+        "name": "Master chef",
+        "base_effect": "+5\u201325% chance for additional food gained from cooking to be rare",
+        "tier": "4",
+        "levels": {
+          "1": "+5% chance for additional food gained from cooking to be rare",
+          "2": "+10% chance for additional food gained from cooking to be rare",
+          "3": "+15% chance for additional food gained from cooking to be rare",
+          "4": "+20% chance for additional food gained from cooking to be rare",
+          "5": "+25% chance for additional food gained from cooking to be rare"
+        }
+      },
+      "Sharing is caring": {
+        "name": "Sharing is caring",
+        "base_effect": "+0.1\u20130.5 health every sec to you and all nearby allies",
+        "tier": "4",
+        "levels": {
+          "1": "0.1 health every sec to you and all nearby allies",
+          "2": "0.2 health every sec to you and all nearby allies",
+          "3": "0.3 health every sec to you and all nearby allies",
+          "4": "0.4 health every sec to you and all nearby allies",
+          "5": "0.5 health every sec to you and all nearby allies"
+        }
+      }
+    }
+  },
+  "Magic": {
+    "skills": {
+      "True sight": {
+        "name": "True sight",
+        "base_effect": "+1\u20135% critical hit chance",
+        "tier": "1",
+        "levels": {
+          "1": "+1% critical hit chance",
+          "2": "+2% critical hit chance",
+          "3": "+3% critical hit chance",
+          "4": "+4% critical hit chance",
+          "5": "+5% critical hit chance"
+        }
+      },
+      "Mana channeling": {
+        "name": "Mana channeling",
+        "base_effect": "+2\u201310% mana recovered on critical hit",
+        "tier": "2",
+        "levels": {
+          "1": "+2% mana recovered on critical hit",
+          "2": "+4% mana recovered on critical hit",
+          "3": "+6% mana recovered on critical hit",
+          "4": "+8% mana recovered on critical hit",
+          "5": "+10% mana recovered on critical hit"
+        }
+      },
+      "Firmly grounded": {
+        "name": "Firmly grounded",
+        "base_effect": "Magic barrier regeneration delay reduced by 5\u201325%",
+        "tier": "2",
+        "levels": {
+          "1": "5 Magic barrier regeneration delay reduced by%",
+          "2": "10 Magic barrier regeneration delay reduced by%",
+          "3": "15 Magic barrier regeneration delay reduced by%",
+          "4": "20 Magic barrier regeneration delay reduced by%",
+          "5": "25 Magic barrier regeneration delay reduced by%"
+        }
+      },
+      "The best offense": {
+        "name": "The best offense",
+        "base_effect": "+10\u201350% of magic barrier is added as magic damage",
+        "tier": "3",
+        "levels": {
+          "1": "+10% of magic barrier is added as magic damage",
+          "2": "+20% of magic barrier is added as magic damage",
+          "3": "+30% of magic barrier is added as magic damage",
+          "4": "+40% of magic barrier is added as magic damage",
+          "5": "+50% of magic barrier is added as magic damage"
+        }
+      },
+      "Arcane frenzy": {
+        "name": "Arcane frenzy",
+        "base_effect": "+10\u201350% magic damage for a short duration on critical hit",
+        "tier": "3",
+        "levels": {
+          "1": "+10% magic damage for a short duration on critical hit",
+          "2": "+20% magic damage for a short duration on critical hit",
+          "3": "+30% magic damage for a short duration on critical hit",
+          "4": "+40% magic damage for a short duration on critical hit",
+          "5": "+50% magic damage for a short duration on critical hit"
+        }
+      },
+      "Arcane transfusion": {
+        "name": "Arcane transfusion",
+        "base_effect": "Recover +1\u20135% of your magic barrier as mana every sec",
+        "tier": "3",
+        "levels": {
+          "1": "1 Recover % of your magic barrier as mana every sec",
+          "2": "2 Recover % of your magic barrier as mana every sec",
+          "3": "3 Recover % of your magic barrier as mana every sec",
+          "4": "4 Recover % of your magic barrier as mana every sec",
+          "5": "5 Recover % of your magic barrier as mana every sec"
+        }
+      },
+      "Fully charged": {
+        "name": "Fully charged",
+        "base_effect": "Up to +6\u201330% magic damage based on your remaining mana",
+        "tier": "4",
+        "levels": {
+          "1": "6 Up to % magic damage based on your remaining mana",
+          "2": "12 Up to % magic damage based on your remaining mana",
+          "3": "18 Up to % magic damage based on your remaining mana",
+          "4": "24 Up to % magic damage based on your remaining mana",
+          "5": "30 Up to % magic damage based on your remaining mana"
+        }
+      },
+      "Deep pool": {
+        "name": "Deep pool",
+        "base_effect": "Mana regeneration delay reduced by 6\u201330%",
+        "tier": "4",
+        "levels": {
+          "1": "6 Mana regeneration delay reduced by%",
+          "2": "12 Mana regeneration delay reduced by%",
+          "3": "18 Mana regeneration delay reduced by%",
+          "4": "24 Mana regeneration delay reduced by%",
+          "5": "30 Mana regeneration delay reduced by%"
+        }
+      }
+    }
+  },
+  "Summoning": {
+    "skills": {
+      "Ferocious creatures": {
+        "name": "Ferocious creatures",
+        "base_effect": "+4\u201320% minion attack speed",
+        "tier": "1",
+        "levels": {
+          "1": "+4% minion attack speed",
+          "2": "+8% minion attack speed",
+          "3": "+12% minion attack speed",
+          "4": "+16% minion attack speed",
+          "5": "+20% minion attack speed"
+        }
+      },
+      "Critical command": {
+        "name": "Critical command",
+        "base_effect": "+4\u201320% minion critical hit chance",
+        "tier": "2",
+        "levels": {
+          "1": "+4% minion critical hit chance",
+          "2": "+8% minion critical hit chance",
+          "3": "+12% minion critical hit chance",
+          "4": "+16% minion critical hit chance",
+          "5": "+20% minion critical hit chance"
+        }
+      },
+      "Power in numbers": {
+        "name": "Power in numbers",
+        "base_effect": "+2\u201310% range attack speed per active minion",
+        "tier": "2",
+        "levels": {
+          "1": "+2% range attack speed per active minion",
+          "2": "+4% range attack speed per active minion",
+          "3": "+6% range attack speed per active minion",
+          "4": "+8% range attack speed per active minion",
+          "5": "+10% range attack speed per active minion"
+        }
+      },
+      "Trickle down arcana": {
+        "name": "Trickle down arcana",
+        "base_effect": "Minion damage is increased by +10\u201350% of your magic damage increase",
+        "tier": "3",
+        "levels": {
+          "1": "10 Minion damage is increased by % of your magic damage increase",
+          "2": "20 Minion damage is increased by % of your magic damage increase",
+          "3": "30 Minion damage is increased by % of your magic damage increase",
+          "4": "40 Minion damage is increased by % of your magic damage increase",
+          "5": "50 Minion damage is increased by % of your magic damage increase"
+        }
+      },
+      "Tough gang": {
+        "name": "Tough gang",
+        "base_effect": "+15\u201375 magic barrier per active minion",
+        "tier": "3",
+        "levels": {
+          "1": "15 magic barrier per active minion",
+          "2": "30 magic barrier per active minion",
+          "3": "45 magic barrier per active minion",
+          "4": "60 magic barrier per active minion",
+          "5": "75 magic barrier per active minion"
+        }
+      },
+      "Group effort": {
+        "name": "Group effort",
+        "base_effect": "+2\u201310% magic damage for every active minion",
+        "tier": "3",
+        "levels": {
+          "1": "+2% magic damage for every active minion",
+          "2": "+4% magic damage for every active minion",
+          "3": "+6% magic damage for every active minion",
+          "4": "+8% magic damage for every active minion",
+          "5": "+10% magic damage for every active minion"
+        }
+      },
+      "Longing for this world": {
+        "name": "Longing for this world",
+        "base_effect": "+10\u201350% minion lifespan",
+        "tier": "4",
+        "levels": {
+          "1": "+10% minion lifespan",
+          "2": "+20% minion lifespan",
+          "3": "+30% minion lifespan",
+          "4": "+40% minion lifespan",
+          "5": "+50% minion lifespan"
+        }
+      },
+      "Proxy parasites": {
+        "name": "Proxy parasites",
+        "base_effect": "Minions heal you for +1\u20135% health when they despawn",
+        "tier": "4",
+        "levels": {
+          "1": "1 Minions heal you for % health when they despawn",
+          "2": "2 Minions heal you for % health when they despawn",
+          "3": "3 Minions heal you for % health when they despawn",
+          "4": "4 Minions heal you for % health when they despawn",
+          "5": "5 Minions heal you for % health when they despawn"
+        }
+      }
+    }
+  }
+}
