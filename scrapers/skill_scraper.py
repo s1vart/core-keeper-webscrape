@@ -127,7 +127,14 @@ class CoreKeeperSkillScraper:
     
     def save_to_json(self, filename: str = 'core_keeper_skills.json'):
         """Save scraped data to JSON file"""
-        with open(filename, 'w', encoding='utf-8') as f:
+        import os
+        
+        # Create scraped_json directory if it doesn't exist
+        os.makedirs('../scraped_json', exist_ok=True)
+        
+        # Save to the scraped_json directory
+        filepath = os.path.join('../scraped_json', filename)
+        with open(filepath, 'w', encoding='utf-8') as f:
             json.dump(self.items_data, f, indent=2)
 
 if __name__ == "__main__":
