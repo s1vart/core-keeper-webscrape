@@ -1,0 +1,922 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    :root {
+        --primary-bg: #1a1a1a;
+        --secondary-bg: #242424;
+        --accent-color: #646cff;
+        --accent-hover: #747bff;
+        --text-primary: #ffffff;
+        --text-secondary: #888888;
+        --border-radius: 8px;
+        --transition: all 0.3s ease;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: var(--primary-bg);
+        color: var(--text-primary);
+    }
+
+    .build-form {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 2rem;
+    }
+
+    h1 {
+        font-size: 3.2em;
+        line-height: 1.1;
+        background: linear-gradient(120deg, var(--accent-color), var(--accent-hover));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .section {
+        background-color: var(--secondary-bg);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+    }
+
+    .section:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+        font-size: 1.5em;
+        margin: 0 0 1rem 0;
+        color: var(--accent-color);
+    }
+
+    select {
+        width: 100%;
+        padding: 0.8rem;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--accent-color);
+        background-color: var(--primary-bg);
+        color: var(--text-primary);
+        font-size: 1rem;
+        transition: var(--transition);
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23646cff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.8rem center;
+        background-size: 1.2rem;
+    }
+
+    select:hover {
+        border-color: var(--accent-hover);
+    }
+
+    select:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--accent-color);
+    }
+
+    select[multiple] {
+        height: 150px;
+        background-image: none;
+    }
+
+    .two-column {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    button {
+        width: 100%;
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--accent-color);
+        background-color: var(--accent-color);
+        color: var(--text-primary);
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    button:hover {
+        background-color: var(--accent-hover);
+        transform: translateY(-1px);
+    }
+
+    .stats-display {
+        margin-top: 2rem;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .stat-item {
+        background-color: var(--primary-bg);
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        text-align: center;
+        transition: var(--transition);
+    }
+
+    .stat-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-value {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: var(--accent-color);
+    }
+
+    .stat-label {
+        font-size: 0.9em;
+        color: var(--text-secondary);
+        margin-top: 0.5rem;
+    }
+
+    .effects-display {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .effect {
+        padding: 0.8rem;
+        border-radius: var(--border-radius);
+        background-color: rgba(255, 255, 255, 0.05);
+        transition: var(--transition);
+        margin-bottom: 0.5rem;
+    }
+
+    .effect.buff {
+        background-color: rgba(40, 167, 69, 0.1);
+        border-left: 3px solid #28a745;
+    }
+
+    .effect.special {
+        background-color: rgba(100, 108, 255, 0.1);
+        border-left: 3px solid #646cff;
+    }
+
+    .effect.stat {
+        background-color: rgba(255, 193, 7, 0.1);
+        border-left: 3px solid #ffc107;
+    }
+
+    .effect.tooltip {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-left: 3px solid #ffffff;
+        font-style: italic;
+    }
+
+    .effect:hover {
+        transform: translateY(-2px);
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    @media (max-width: 768px) {
+        .two-column {
+            grid-template-columns: 1fr;
+        }
+        
+        .build-form {
+            padding: 1rem;
+            margin: 1rem;
+        }
+    }
+
+    .effects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .effects-column {
+        background-color: var(--secondary-bg);
+        border-radius: var(--border-radius);
+        padding: 1rem;
+    }
+
+    .effects-column h3 {
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+        font-size: 1.2em;
+    }
+
+    .effects-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .active-effects {
+        margin-top: 2rem;
+        padding: 1rem;
+        background-color: var(--secondary-bg);
+        border-radius: var(--border-radius);
+    }
+
+    .active-effects h2 {
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+    }
+
+    /* Add loading spinner */
+    .spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255,255,255,.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* Add error message styling */
+    .error-message {
+        background-color: rgba(255, 0, 0, 0.1);
+        border-left: 3px solid #ff0000;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: var(--border-radius);
+    }
+
+    /* Improve accessibility */
+    select:focus, button:focus {
+        outline: 2px solid var(--accent-color);
+        outline-offset: 2px;
+    }
+
+    /* Add disabled state styling */
+    button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+</style>
+
+<div class="build-form">
+    <h1>Core Keeper Calculator</h1>
+    
+    <div style="text-align: center; margin-bottom: 20px;">
+        <a href="/stats" class="stats-link" style="
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            margin: 10px 0;
+        ">View All Items Stats</a>
+    </div>
+
+    <div class="two-column">
+        <div class="section">
+            <h2>Weapon</h2>
+            <div class="weapon-selection">
+                <select id="weapon-type" title="Select your weapon">
+                    <option value="">Select a weapon...</option>
+                </select>
+                <div id="weapon-level-container" style="margin-top: 10px; display: none;">
+                    <select id="weapon-level" title="Select weapon level">
+                        <option value="">Select level...</option>
+                    </select>
+                </div>
+            </div>
+            <div id="weapon-effects" class="effects-display">
+                <!-- Weapon effects will be displayed here -->
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Armor</h2>
+            <div id="armor-slots">
+                <div class="armor-slot">
+                    <select class="armor-select" title="Select helm">
+                        <option value="">Select Helm...</option>
+                    </select>
+                </div>
+                <div class="armor-slot">
+                    <select class="armor-select" title="Select chest">
+                        <option value="">Select Chest...</option>
+                    </select>
+                </div>
+                <div class="armor-slot">
+                    <select class="armor-select" title="Select pants">
+                        <option value="">Select Pants...</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="two-column">
+        <div class="section">
+            <h2>Food Buffs</h2>
+            <select id="food-select" multiple>
+                <option value="">Select food buffs...</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <h2>Potion Buffs</h2>
+            <select id="potion-select" multiple>
+                <option value="">Select potion buffs...</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Skills</h2>
+        <select id="skills-select" multiple>
+            <option value="">Select skills...</option>
+        </select>
+    </div>
+
+    <div class="section">
+        <h2>Accessories</h2>
+        <div class="accessory-selection">
+            <select id="accessory-type" title="Select your accessory">
+                <option value="">Select an accessory...</option>
+            </select>
+            <div id="accessory-level-container" style="margin-top: 10px; display: none;">
+                <select id="accessory-level" title="Select accessory level">
+                    <option value="">Select level...</option>
+                </select>
+            </div>
+        </div>
+        <div id="accessories-effects" class="effects-display">
+            <!-- Effects will be displayed here -->
+        </div>
+    </div>
+
+    <button onclick="calculateBuild()">Calculate Build Stats</button>
+
+    <div class="stats-display" id="stats-output">
+        <h2>Build Stats</h2>
+        <div class="stats-grid">
+            <!-- Stats will be populated here -->
+        </div>
+        
+        <div class="active-effects">
+            <h2>Active Effects</h2>
+            <div class="effects-grid">
+                <div class="effects-column">
+                    <h3>Weapon Effects</h3>
+                    <div id="active-weapon-effects" class="effects-list"></div>
+                </div>
+                <div class="effects-column">
+                    <h3>Armor Effects</h3>
+                    <div id="active-other-effects" class="effects-list"></div>
+                </div>
+                <div class="effects-column">
+                    <h3>Accessory Effects</h3>
+                    <div id="active-accessory-effects" class="effects-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let weaponSelect;
+    let data;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            console.log('Loading data...');
+            const response = await fetch('/api/all-stats');
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            data = await response.json();
+            console.log('Data loaded:', data);
+
+            // Initialize weapon select
+            weaponSelect = document.getElementById('weapon-type');
+            weaponSelect.innerHTML = '<option value="">Select a weapon...</option>';
+            
+            // Sort weapons alphabetically
+            if (data.weapons) {
+                const weaponNames = Object.keys(data.weapons).sort();
+                weaponNames.forEach(weaponName => {
+                    const option = document.createElement('option');
+                    option.value = weaponName;
+                    option.textContent = weaponName;
+                    weaponSelect.appendChild(option);
+                });
+            } else {
+                console.error('No weapons data found:', data);
+            }
+
+            // Initialize accessory select
+            const accessorySelect = document.getElementById('accessory-type');
+            accessorySelect.innerHTML = '<option value="">Select an accessory...</option>';
+            
+            // Sort accessories alphabetically
+            if (data.accessories) {
+                const accessoryNames = Object.keys(data.accessories).sort();
+                accessoryNames.forEach(accName => {
+                    const option = document.createElement('option');
+                    option.value = accName;
+                    option.textContent = accName;
+                    accessorySelect.appendChild(option);
+                });
+            } else {
+                console.error('No accessories data found:', data);
+            }
+
+            // Initialize armor selects
+            const armorSelects = document.querySelectorAll('.armor-select');
+            if (data.armor) {
+                armorSelects.forEach(select => {
+                    const slotType = select.title.split(' ')[1].toLowerCase(); // Get "helm", "chest", or "pants"
+                    select.innerHTML = `<option value="">Select ${slotType.charAt(0).toUpperCase() + slotType.slice(1)}...</option>`;
+                    
+                    // Filter armor pieces for this slot
+                    const armorPieces = Object.entries(data.armor)
+                        .filter(([_, armorData]) => {
+                            const slot = armorData.slot ? armorData.slot.toLowerCase() : '';
+                            return (
+                                (slotType === 'helm' && (slot.includes('helm') || slot.includes('hood') || slot.includes('hat'))) ||
+                                (slotType === 'chest' && (slot.includes('chest') || slot.includes('breast') || slot.includes('tunic'))) ||
+                                (slotType === 'pants' && (slot.includes('pants') || slot.includes('legs')))
+                            );
+                        })
+                        .sort(([a], [b]) => a.localeCompare(b));
+
+                    console.log(`Armor pieces for ${slotType}:`, armorPieces);
+                    
+                    armorPieces.forEach(([armorName, armorData]) => {
+                        const option = document.createElement('option');
+                        option.value = armorName;
+                        option.textContent = armorName;
+                        select.appendChild(option);
+                    });
+                });
+
+                // Modify the armor select change listener
+                armorSelects.forEach(select => {
+                    select.addEventListener('change', function() {
+                        const selectedArmor = this.value;
+                        if (!selectedArmor) return;
+
+                        const armorData = data.armor[selectedArmor];
+                        if (!armorData || !armorData.levels) return;
+
+                        const maxLevel = Math.max(...Object.keys(armorData.levels).map(Number));
+                        const levelData = armorData.levels[maxLevel];
+
+                        if (levelData && levelData.effects) {
+                            // Process effects as a single string first
+                            let effectsString = Array.isArray(levelData.effects) 
+                                ? levelData.effects.join('+')
+                                : levelData.effects;
+
+                            // Clean up the effects string
+                            effectsString = effectsString
+                                .replace(/\s*\([^)]*\)/g, '')  // Remove parenthetical content
+                                .replace(/\+\+/g, '+')         // Fix double plus signs
+                                .replace(/^\+/, '');           // Remove leading plus
+
+                            // Split into individual effects
+                            const effects = effectsString
+                                .split('+')
+                                .map(effect => effect.trim())
+                                .filter(effect => effect);
+
+                            console.log('Cleaned effects:', effects);
+                            updateArmorEffects();
+                        }
+                    });
+                });
+            } else {
+                console.error('No armor data found:', data);
+            }
+
+            // Add weapon level selection listener
+            weaponSelect.addEventListener('change', function() {
+                const selectedWeapon = this.value;
+                const weaponInfo = data.weapons[selectedWeapon];
+                const levelSelect = document.getElementById('weapon-level');
+                const levelContainer = document.getElementById('weapon-level-container');
+                
+                console.log('Selected weapon:', selectedWeapon);
+                console.log('Weapon info:', weaponInfo);
+                
+                if (weaponInfo && weaponInfo.levels) {
+                    levelSelect.innerHTML = '<option value="">Select level...</option>';
+                    const levels = Object.keys(weaponInfo.levels).sort((a, b) => Number(a) - Number(b));
+                    
+                    levels.forEach(level => {
+                        const option = document.createElement('option');
+                        option.value = level;
+                        option.textContent = `Level ${level}`;
+                        levelSelect.appendChild(option);
+                    });
+                    levelContainer.style.display = 'block';
+                } else {
+                    levelContainer.style.display = 'none';
+                }
+            });
+
+            // Add accessory level selection listener
+            accessorySelect.addEventListener('change', function() {
+                const selectedAccessory = this.value;
+                const accessoryInfo = data.accessories[selectedAccessory];
+                const levelSelect = document.getElementById('accessory-level');
+                const levelContainer = document.getElementById('accessory-level-container');
+                
+                console.log('Selected accessory:', selectedAccessory);
+                console.log('Accessory info:', accessoryInfo);
+                
+                if (accessoryInfo && accessoryInfo.levels) {
+                    levelSelect.innerHTML = '<option value="">Select level...</option>';
+                    const levels = Object.keys(accessoryInfo.levels).sort((a, b) => Number(a) - Number(b));
+                    
+                    levels.forEach(level => {
+                        const option = document.createElement('option');
+                        option.value = level;
+                        option.textContent = `Level ${level}`;
+                        levelSelect.appendChild(option);
+                    });
+                    levelContainer.style.display = 'block';
+                } else {
+                    levelContainer.style.display = 'none';
+                }
+            });
+
+        } catch (error) {
+            console.error('Error loading data:', error);
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = 'Failed to load item data. Please refresh the page.';
+            document.querySelector('.build-form').prepend(errorDiv);
+        }
+    });
+
+    // Rest of your JavaScript functions...
+    // function displayAccessoryEffects(levelData) {
+    //     const effectsDisplay = document.getElementById('accessories-effects');
+    //     effectsDisplay.innerHTML = '';
+    //     
+    //     console.log('Processing level data:', levelData);
+
+    //     // Handle effects - they can be like "+31 max health+22.7% larger harvests"
+    //     if (levelData.effects) {
+    //         // Split effects by the plus sign when it's followed by a number
+    //         const effectsList = levelData.effects
+    //             .split(/(?=\+\d)/)  // Split when there's a plus followed by a number
+    //             .map(effect => effect.trim())
+    //             .filter(effect => effect);
+
+    //         console.log('Split effects:', effectsList);
+
+    //         effectsList.forEach(effect => {
+    //             if (effect) {
+    //                 const effectDiv = document.createElement('div');
+    //                 effectDiv.className = 'effect buff';
+    //                 effectDiv.textContent = effect.startsWith('+') ? effect : '+' + effect;
+    //                 effectsDisplay.appendChild(effectDiv);
+    //             }
+    //         });
+    //     }
+
+    //     // Handle tooltip
+    //     if (levelData.tooltip) {
+    //         const tooltipDiv = document.createElement('div');
+    //         tooltipDiv.className = 'effect tooltip';
+    //         tooltipDiv.textContent = levelData.tooltip;
+    //         effectsDisplay.appendChild(tooltipDiv);
+    //     }
+    // }
+
+    // Add this function to display all effects
+    function displayAllEffects() {
+        const statsOutput = document.getElementById('stats-output');
+        
+        // Remove any existing active effects section
+        const existingEffects = statsOutput.querySelector('.active-effects-section');
+        if (existingEffects) {
+            existingEffects.remove();
+        }
+
+        const allEffectsDiv = document.createElement('div');
+        allEffectsDiv.className = 'section active-effects-section'; // Add unique class
+        allEffectsDiv.innerHTML = `
+            <h2>Active Effects</h2>
+            <div class="effects-grid">
+                <div class="effects-column">
+                    <h3>Weapon Effects</h3>
+                    <div id="active-weapon-effects" class="effects-list"></div>
+                </div>
+                <div class="effects-column">
+                    <h3>Accessory Effects</h3>
+                    <div id="active-accessory-effects" class="effects-list"></div>
+                </div>
+                <div class="effects-column">
+                    <h3>Other Effects</h3>
+                    <div id="active-other-effects" class="effects-list"></div>
+                </div>
+            </div>
+        `;
+        statsOutput.appendChild(allEffectsDiv);
+    }
+
+    // Update the calculateBuild function to include effects display
+    async function calculateBuild() {
+        try {
+            // Get all the form values once at the start
+            const weaponName = document.getElementById('weapon-type').value;
+            const weaponLevel = document.getElementById('weapon-level').value;
+            const accessoryName = document.getElementById('accessory-type').value;
+            const accessoryLevel = document.getElementById('accessory-level').value;
+            
+            // Validate required fields
+            if (!weaponName || !weaponLevel) {
+                alert('Please select a weapon and weapon level');
+                return;
+            }
+
+            const buildData = {
+                weapon: {
+                    name: weaponName,
+                    level: weaponLevel
+                },
+                accessory: {
+                    name: accessoryName,
+                    level: accessoryLevel
+                },
+                armor: Array.from(document.querySelectorAll('.armor-select'))
+                    .map(select => select.value)
+                    .filter(v => v),
+                food: Array.from(document.getElementById('food-select').selectedOptions)
+                    .map(opt => opt.value),
+                potions: Array.from(document.getElementById('potion-select').selectedOptions)
+                    .map(opt => opt.value),
+                skills: Array.from(document.getElementById('skills-select').selectedOptions)
+                    .map(opt => opt.value)
+            };
+
+            console.log('Sending build data:', buildData);
+
+            const response = await fetch('/api/calculate-dps', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(buildData)
+            });
+
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const stats = await response.json();
+
+            console.log('Received stats:', stats);
+
+            // Display the stats
+            const statsOutput = document.getElementById('stats-output');
+            const statsGrid = statsOutput.querySelector('.stats-grid');
+            statsGrid.innerHTML = '';
+
+            // Add each stat to the grid
+            Object.entries(stats).forEach(([key, value]) => {
+                if (typeof value === 'number') {
+                    const statItem = document.createElement('div');
+                    statItem.className = 'stat-item';
+                    statItem.innerHTML = `
+                        <div class="stat-value">${value.toFixed(2)}</div>
+                        <div class="stat-label">${key.replace(/_/g, ' ').toUpperCase()}</div>
+                    `;
+                    statsGrid.appendChild(statItem);
+                }
+            });
+
+            // After displaying stats, show all active effects
+            displayAllEffects();
+            
+            // Update active effects
+            if (weaponName && weaponLevel) {
+                const weaponInfo = data.weapons[weaponName].levels[weaponLevel];
+                const weaponEffectsDiv = document.getElementById('active-weapon-effects');
+                weaponEffectsDiv.innerHTML = '';
+                
+                console.log('Weapon info:', weaponInfo);
+
+                // Handle weapon effects
+                if (weaponInfo.effects) {
+                    weaponInfo.effects.forEach(effect => {
+                        const effectDiv = document.createElement('div');
+                        effectDiv.className = 'effect buff';
+                        effectDiv.textContent = effect;
+                        weaponEffectsDiv.appendChild(effectDiv);
+                    });
+                }
+
+                // Handle weapon stats as effects
+                if (weaponInfo.damage) {
+                    const damageDiv = document.createElement('div');
+                    damageDiv.className = 'effect stat';
+                    damageDiv.textContent = `Damage: ${weaponInfo.damage}`;
+                    weaponEffectsDiv.appendChild(damageDiv);
+                }
+
+                if (weaponInfo['attack rate']) {
+                    const speedDiv = document.createElement('div');
+                    speedDiv.className = 'effect stat';
+                    speedDiv.textContent = `Attack Rate: ${weaponInfo['attack rate']}`;
+                    weaponEffectsDiv.appendChild(speedDiv);
+                }
+
+                if (weaponInfo.tooltip) {
+                    const tooltipDiv = document.createElement('div');
+                    tooltipDiv.className = 'effect tooltip';
+                    tooltipDiv.textContent = weaponInfo.tooltip;
+                    weaponEffectsDiv.appendChild(tooltipDiv);
+                }
+            }
+
+            // After displaying stats, update effects
+            updateArmorEffects();
+            
+            if (accessoryName && accessoryLevel) {
+                const accessoryInfo = data.accessories[accessoryName].levels[accessoryLevel];
+                const accessoryEffectsDiv = document.getElementById('active-accessory-effects');
+                accessoryEffectsDiv.innerHTML = '';
+                
+                console.log('\nProcessing accessory in frontend:');
+                console.log('Raw accessory info:', accessoryInfo);
+
+                if (accessoryInfo.effects) {
+                    let effectsList = [];
+                    
+                    if (Array.isArray(accessoryInfo.effects)) {
+                        effectsList = accessoryInfo.effects;
+                    } else if (typeof accessoryInfo.effects === 'string') {
+                        // Split by '+' first
+                        effectsList = accessoryInfo.effects
+                            .replace('++', '+')
+                            .split(/(?=\+|\-)/)
+                            .map(effect => effect.trim())
+                            // Remove all parenthetical content and their contents
+                            .map(effect => effect.replace(/\s*\([^)]*\)/g, ''))
+                            // Filter out empty strings and clean up
+                            .filter(effect => effect && effect !== ')');
+
+                        console.log('Cleaned accessory effects:', effectsList);
+                    }
+
+                    effectsList.forEach(effect => {
+                        if (effect) {
+                            const effectDiv = document.createElement('div');
+                            effectDiv.className = 'effect buff';
+                            effectDiv.textContent = effect;
+                            accessoryEffectsDiv.appendChild(effectDiv);
+                            console.log('Added clean accessory effect:', effectDiv.textContent);
+                        }
+                    });
+                }
+            }
+
+        } catch (error) {
+            console.error('Error:', error);
+            const statsOutput = document.getElementById('stats-output');
+            statsOutput.innerHTML = `
+                <h2>Build Stats</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">Coming Soon!</div>
+                        <div class="stat-label">BUILD STATS CALCULATION IS UNDER DEVELOPMENT</div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // Include all your other functions here...
+
+    // function displayAllAccessoryEffects() {
+    //     const allEffectsDiv = document.getElementById('all-accessories-effects');
+    //     allEffectsDiv.innerHTML = '';
+
+    //     Object.entries(data.accessories).forEach(([accName, accInfo]) => {
+    //         const accessoryDiv = document.createElement('div');
+    //         accessoryDiv.className = 'effects-column';
+    //         
+    //         const title = document.createElement('h3');
+    //         title.textContent = accName;
+    //         accessoryDiv.appendChild(title);
+
+    //         const effectsList = document.createElement('div');
+    //         effectsList.className = 'effects-list';
+
+    //         // Get effects from the highest level
+    //         const maxLevel = Math.max(...Object.keys(accInfo.levels).map(Number));
+    //         const levelData = accInfo.levels[maxLevel];
+
+    //         if (levelData.effects) {
+    //             const effects = levelData.effects
+    //                 .split(/(?=\+\d)/)
+    //                 .map(effect => effect.trim())
+    //                 .filter(effect => effect);
+
+    //             effects.forEach(effect => {
+    //                 const effectDiv = document.createElement('div');
+    //                 effectDiv.className = 'effect buff';
+    //                 effectDiv.textContent = effect.startsWith('+') ? effect : '+' + effect;
+    //                 effectsList.appendChild(effectDiv);
+    //             });
+    //         }
+
+    //         if (levelData.tooltip) {
+    //             const tooltipDiv = document.createElement('div');
+    //             tooltipDiv.className = 'effect tooltip';
+    //             tooltipDiv.textContent = levelData.tooltip;
+    //             effectsList.appendChild(tooltipDiv);
+    //         }
+
+    //         accessoryDiv.appendChild(effectsList);
+    //         allEffectsDiv.appendChild(accessoryDiv);
+    //     });
+    // }
+
+    // 3. Add loading states
+    function showLoading(element) {
+        element.disabled = true;
+        element.innerHTML = '<span class="spinner"></span> Loading...';
+    }
+
+    function hideLoading(element, originalText) {
+        element.disabled = false;
+        element.textContent = originalText;
+    }
+
+    // Add this function after the document.addEventListener block
+    function updateArmorEffects() {
+        const otherEffectsDiv = document.getElementById('active-other-effects');
+        if (!otherEffectsDiv) return;
+
+        // Clear existing effects
+        otherEffectsDiv.innerHTML = '';
+
+        // Get all selected armor pieces
+        const armorSelects = document.querySelectorAll('.armor-select');
+        armorSelects.forEach(select => {
+            const armorName = select.value;
+            if (!armorName) return;
+            
+            const armorPiece = data.armor[armorName];
+            if (!armorPiece || !armorPiece.levels) return;
+
+            const maxLevel = Math.max(...Object.keys(armorPiece.levels).map(Number));
+            const levelData = armorPiece.levels[maxLevel];
+            
+            if (levelData && levelData.effects) {
+                // Process effects as a single string
+                let effectsString = Array.isArray(levelData.effects) 
+                    ? levelData.effects.join('+')
+                    : levelData.effects;
+
+                // Clean up the effects string
+                effectsString = effectsString
+                    .replace(/\s*\([^)]*\)/g, '')  // Remove parenthetical content
+                    .replace(/\+\+/g, '+')         // Fix double plus signs
+                    .replace(/^\+/, '');           // Remove leading plus
+
+                // Split into individual effects
+                const effects = effectsString
+                    .split('+')
+                    .map(effect => effect.trim())
+                    .filter(effect => effect);
+
+                // Add effects to div
+                effects.forEach(effect => {
+                    if (effect) {
+                        const effectDiv = document.createElement('div');
+                        effectDiv.className = 'effect buff';
+                        effectDiv.textContent = effect.startsWith('+') ? effect : `+${effect}`;
+                        otherEffectsDiv.appendChild(effectDiv);
+                    }
+                });
+            }
+        });
+    }
+</script>
+{% endblock %}

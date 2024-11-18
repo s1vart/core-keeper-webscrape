@@ -1,1 +1,9 @@
-This project is a collection of webscrape python scripts with the goal of gathering data for items in the game Core Keeper from the core keeper wiki https://core-keeper.fandom.com/wiki/Core_Keeper_Wiki
+# Core Keeper Calculator
+
+This project is a web application that provides a calculator and item database for the game Core Keeper. The data is scraped from the [Core Keeper Wiki](https://core-keeper.fandom.com/wiki/Core_Keeper_Wiki).
+
+## Setup Instructions
+
+### 1. Create and Activate Virtual Environment
+
+**For Windows:**

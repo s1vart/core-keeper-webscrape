@@ -1,0 +1,82 @@
+<!-- Create this new file for the navigation component -->
+<nav class="nav-bar">
+    <div class="nav-content">
+        <a href="/" class="nav-logo">Core Keeper Calculator</a>
+        <div class="nav-links">
+            <a href="/" class="nav-link">Calculator</a>
+            <a href="/builds" class="nav-link">Builds</a>
+            <a href="/compare" class="nav-link">Compare</a>
+            <a href="/stats" class="nav-link">Stats</a>
+            <a href="/guide" class="nav-link">Guide</a>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .nav-bar {
+        background-color: var(--secondary-bg);
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav-logo {
+        font-size: 1.5rem;
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+
+    .nav-logo:hover {
+        color: var(--accent-hover);
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+    }
+
+    .nav-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: var(--border-radius);
+        transition: var(--transition);
+    }
+
+    .nav-link:hover {
+        color: var(--text-primary);
+        background-color: rgba(100, 108, 255, 0.1);
+    }
+
+    .nav-link.active {
+        color: var(--accent-color);
+        background-color: rgba(100, 108, 255, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        .nav-content {
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .nav-links {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+    }
+</style> 

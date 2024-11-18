@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Keeper Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --bg-darker: #141414;
+            --bg-light: #2d2d2d;
+            --accent: #6c3483;
+            --accent-hover: #8e44ad;
+            --text: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-darker);
+            color: var(--text);
+        }
+
+        .navbar {
+            background-color: var(--bg-dark) !important;
+        }
+
+        .navbar-brand, .nav-link {
+            color: var(--text) !important;
+        }
+
+        .nav-link.active {
+            background-color: var(--accent) !important;
+            border-radius: 5px;
+        }
+
+        .nav-link:hover:not(.active) {
+            background-color: var(--accent-hover);
+            border-radius: 5px;
+        }
+
+        .container {
+            background-color: var(--bg-dark);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .table {
+            color: var(--text);
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: var(--accent) !important;
+            color: var(--text);
+        }
+
+        .table thead th {
+            background-color: var(--bg-dark);
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .table td, .table th {
+            border-color: var(--bg-light);
+        }
+
+        .modal-content {
+            background-color: var(--bg-dark);
+            color: var(--text);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .form-control {
+            background-color: var(--bg-light);
+            border: 1px solid var(--accent);
+            color: var(--text);
+        }
+
+        .form-control:focus {
+            background-color: var(--bg-light);
+            border-color: var(--accent-hover);
+            color: var(--text);
+            box-shadow: 0 0 0 0.25rem rgba(108, 52, 131, 0.25);
+        }
+
+        .form-control option {
+            background-color: var(--bg-light);
+            color: var(--text);
+        }
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% block content %}{% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html> 
